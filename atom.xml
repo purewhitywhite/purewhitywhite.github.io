@@ -5,9 +5,9 @@
   <subtitle>Better late than never</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://purewhitywhite.github.io/"/>
   <updated>2020-01-08T07:50:47.539Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://purewhitywhite.github.io/</id>
   
   <author>
     <name>pur3wh1tywhite</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>实习日记</title>
-    <link href="http://yoursite.com/2020-01-07/%E5%AE%9E%E4%B9%A0%E6%97%A5%E8%AE%B0/"/>
-    <id>http://yoursite.com/2020-01-07/%E5%AE%9E%E4%B9%A0%E6%97%A5%E8%AE%B0/</id>
+    <link href="https://purewhitywhite.github.io/2020-01-07/%E5%AE%9E%E4%B9%A0%E6%97%A5%E8%AE%B0/"/>
+    <id>https://purewhitywhite.github.io/2020-01-07/%E5%AE%9E%E4%B9%A0%E6%97%A5%E8%AE%B0/</id>
     <published>2020-01-07T09:08:09.000Z</published>
     <updated>2020-01-08T07:50:47.539Z</updated>
     
@@ -33,14 +33,14 @@
     
     
     
-      <category term="工作" scheme="http://yoursite.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+      <category term="工作" scheme="https://purewhitywhite.github.io/tags/%E5%B7%A5%E4%BD%9C/"/>
     
   </entry>
   
   <entry>
     <title>我的第一篇博客</title>
-    <link href="http://yoursite.com/2019-06-01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2019-06-01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
+    <link href="https://purewhitywhite.github.io/2019-06-01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://purewhitywhite.github.io/2019-06-01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
     <published>2019-06-01T13:39:12.000Z</published>
     <updated>2020-01-07T09:20:11.181Z</updated>
     
