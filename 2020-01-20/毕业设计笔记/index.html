@@ -159,7 +159,188 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-毕业设计笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      毕业设计笔记
+    </h1>
+  
+
+		
+			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">704字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+
+		
+		<!--显示阅读次数-->
+
+  
+ 
+
+  <span id="busuanzi_container_page_pv" style="color:#636363;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+
+
+<!--显示阅读次数完毕-->
+        
+        <a href="/2020-01-20/毕业设计笔记/" class="archive-article-date">
+  	<time datetime="2020-01-20T08:11:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+	
+	
+      
+        <p>随着近几年机器学习的迅速发展,许多研究人员使用机器学习算法来解决异常检测领域的难题,并且取得了许多实验成果。请利用该方法尝试实现小型网络的监控。可以利用KDD99数据库。</p>
+<a id="more"></a>
+<h1 id="网络异常流量检测研究"><a href="#网络异常流量检测研究" class="headerlink" title="网络异常流量检测研究"></a>网络异常流量检测研究</h1><h2 id="数据集选择"><a href="#数据集选择" class="headerlink" title="数据集选择"></a>数据集选择</h2><ul>
+<li><p><a href="http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html" target="_blank" rel="noopener"><strong>KDD99</strong></a><br>该数据集是从一个模拟的美国空军局域网上采集来的9个星期的网络连接数据,分成具有标识的训练数据和未加标识的测试数据。测试数据和训练数据有着不同的概率分布,测试数据包含了一些未出现在训练数据中的攻击类型,这使得入侵检测更具有现实性。</p>
+</li>
+<li><p><a href="https://www.unb.ca/cic/datasets/nsl.html" target="_blank" rel="noopener"><strong>NSL-KDD</strong></a><br>该数据集解决了KDD99数据集中存在的固有问题。NSL-KDD数据集由于缺少基于入侵检测网络的公共数据集，所以NSL-KDD数据集仍然存在一些问题，同时也不是现有真实网络的完美代表。但它仍然可以用作有效的基准数据集，以帮助研究人员比较不同的入侵检测方法。NSL-KDD训练集和测试集的设置是合理的，不同研究工作的评估结果将是一致的和可比的。二者具体区别见下：</p>
+</li>
+</ul>
+<ol>
+<li>It does not include redundant records in the train set, so the classifiers will not be biased towards more frequent records.<blockquote>
+<p>NSL-KDD数据集的训练集中<strong>不包含冗余记录</strong>，所以分类器<strong>不会偏向更频繁的记录</strong>；</p>
+</blockquote>
+</li>
+<li>There is no duplicate records in the proposed test sets; therefore, the performance of the learners are not biased by the methods which have better detection rates on the frequent records.<blockquote>
+<p>NSL-KDD数据集的测试集中<strong>没有重复的记录</strong>，使得<strong>检测率更为准确</strong>。</p>
+</blockquote>
+</li>
+<li>The number of selected records from each difficultylevel group is inversely proportional to the percentage of records in the original KDD data set. As a result, the classification rates of distinct machine learning methods vary in a wider range, which makes it more efficient to have an accurate evaluation of different learning techniques.<blockquote>
+<p>来自每个难度级别组的所选记录的数量与原始KDD数据集中的记录的百分比成反比。结果，不同机器学习方法的分类率在更宽的范围内变化，这使得对不同学习技术的准确评估更有效。</p>
+</blockquote>
+</li>
+<li>The number of records in the train and test sets are reasonable, which makes it affordable to run the experiments on the complete set without the need to randomly select a small portion. Consequently, evaluation results of different research works will be consistent and comparable.<blockquote>
+<p>训练和测试中的记录数量设置是合理的，这使得在整套实验上运行实验成本低廉而无需随机选择一小部分。因此，不同研究工作的评估结果将是一致的和可比较的。</p>
+</blockquote>
+</li>
+</ol>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IDS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020-01-07/实习日记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">实习日记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#网络异常流量检测研究"><span class="toc-number">1.</span> <span class="toc-text">网络异常流量检测研究</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集选择"><span class="toc-number">1.1.</span> <span class="toc-text">数据集选择</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '6283619ae41f46801ca2',
+  	clientSecret: '830d4b01fa756b6bc8a174fb1b4daf2156bdcf54',
+  	repo: 'blog_comment',
+  	owner: 'purewhitywhite',
+  	admin: ['purewhitywhite'],
+  	id: 'Mon Jan 20 2020 16:11:02 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+  
+
+  
+
+  
+
+  
+
+
           </div>
         </div>
       </div>
@@ -274,11 +455,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">工作</a>
+                <a href="javascript:void(0)" class="js-tag color4">IDS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDS</a>
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
               </li>
             
             <div class="clearfix"></div>
