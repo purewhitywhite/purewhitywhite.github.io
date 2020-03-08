@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/08/3zUgBR.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/08/3zINAP.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/08/3zoSud.jpg">
-<meta property="og:updated_time" content="2020-03-08T15:14:51.791Z">
+<meta property="og:updated_time" content="2020-03-08T15:25:20.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stage1Day1 Web">
 <meta name="twitter:description" content="Blue-whale OJcalculator、RapidTyping、Basic PHP、Basic PHP 2 writeup.">
@@ -225,9 +225,16 @@
 <blockquote>
 <p>今天是测试第一阶段的第一天。Keep posting!</p>
 </blockquote>
-<h1 id="Calculator"><a href="#Calculator" class="headerlink" title="Calculator"></a>Calculator</h1><center><img src="https://s2.ax1x.com/2020/03/08/3z3niQ.md.jpg" alt="3z3niQ.jpg" border="0"></center>
+<ul>
+<li><a href="#Calculator">Calculator</a></li>
+<li><a href="#RapidTyping">RapidTyping</a></li>
+<li><a href="#Basic-PHP">Basic PHP</a></li>
+<li><a href="#Basic-PHP-2">Basic PHP 2</a></li>
+<li><a href="#总结">总结</a><h1 id="Calculator"><a href="#Calculator" class="headerlink" title="Calculator"></a>Calculator</h1><center><img src="https://s2.ax1x.com/2020/03/08/3z3niQ.md.jpg" alt="3z3niQ.jpg" border="0"></center>
 从题目要求可以看到，需要在1.5s内计算出一个比较大的四则运算。按计算器估计是来不及了，由hint我们知道用Python来实现。先贴代码：
 
+</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">url = <span class="string">"http://vps1.blue-whale.me:23331/calculator/"</span></span><br><span class="line">cal_session = requests.session()</span><br><span class="line">cal_respond = cal_session.get(url)</span><br><span class="line"><span class="comment"># print(cal_respond.text)</span></span><br><span class="line">soup = BeautifulSoup(cal_respond.text, <span class="string">'lxml'</span>)</span><br><span class="line">span = soup.find(<span class="string">"span"</span>, id=<span class="string">"exp"</span>)</span><br><span class="line">num = eval(span.text.replace(<span class="string">'='</span>, <span class="string">''</span>))</span><br><span class="line"><span class="comment"># print(num)</span></span><br><span class="line">ans = &#123;<span class="string">"answer"</span>: num&#125;</span><br><span class="line">r = cal_session.get(url, params=ans)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
 
 <p>代码分为几个阶段：<br>首先使用了<kbd>requests</kbd>，它是基于urllib3的一个用于发起http请求的包；之后引入了比较常见的<kbd>BeautifulSoup</kbd>。创建一个session对象后，发送请求并获得返回的response对象。</p>
