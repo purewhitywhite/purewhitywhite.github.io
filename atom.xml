@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://purewhitywhite.github.io/"/>
-  <updated>2020-03-12T15:02:41.162Z</updated>
+  <updated>2020-03-13T15:43:52.511Z</updated>
   <id>https://purewhitywhite.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Stage1Day6 Misc</title>
+    <link href="https://purewhitywhite.github.io/2020-03-13/Stage1Day6-Misc/"/>
+    <id>https://purewhitywhite.github.io/2020-03-13/Stage1Day6-Misc/</id>
+    <published>2020-03-13T14:59:03.000Z</published>
+    <updated>2020-03-13T15:43:52.511Z</updated>
+    
+    <content type="html"><![CDATA[<p>Blue-whale OJ<br>Another 01Game、Exif、PkCrack writeup.</p><a id="more"></a><hr><h1 id="Another-01Game"><a href="#Another-01Game" class="headerlink" title="Another 01Game"></a>Another 01Game</h1><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><ul><li>0和1的数量很关键，首先统计0和1的数量：</li></ul><p>1369.0/7 = 195.57142857142858<br>1369.0/8 = 171.125<br>1369.0 ** 0.5 = 37.0<br>1369不是7和8的倍数，说明很可能和ASCII没关系。1369是37的平方，说明可以由0和1正好组成一个正方形（二维码，QR code）</p><ul><li>统计字符串长度，可以当作 ASCII 编程解出 flag<br>题目给出的提示非常清晰，下面开始写脚本进行二维码制作+flag获取：<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2></li><li>使用<code>qrcode</code>包进行二维码生成<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> qrcode</span><br><span class="line">qr = qrcode.QRCode(</span><br><span class="line">    version=<span class="number">1</span>,</span><br><span class="line">    error_correction=qrcode.constants.ERROR_CORRECT_L,</span><br><span class="line">    box_size=<span class="number">10</span>,</span><br><span class="line">    border=<span class="number">2</span>,</span><br><span class="line">)</span><br><span class="line">qr.add_data(<span class="string">"0000000111011101100011011111010000000011111011011101111001100100101011111001000101011011101101000101010101000100100010110110011001101001010010100010010001011011001101000101010001010001001111101110001000011001010111101111100000000101010101010101010101010000000111111110110111010101100000011111111100010000011101110101010101010001110110001101110100010001010010100101010101011111001110010000110111000011110100111100011011100010110101001011101101001110100101101100101100110110110100010010010100100110010101110101010101010111111000000110111100001100111101000101001101110101110101110001010001010010011110010101011100010101111101001001101000111101000100110101010010011001010110000100000100010110010101010111010100101110101000100101110101010111010100000100000011001101010100011111010010100101011001100101010101110100100100100010010101101111010100111011001001001100010110011101000011110101110001011100000011110111010110001011111000010110001101110001001001010111101101000001111100111001000100110110100001101011001011011010001000011001011001100000010111000110110001011001010100000100011111111000011001010110011000111001010000000100111011101101110001010101000011111010100111001101010110101110001001000101001101110011001111100000001010100010110000011000011101010001000100010001010000010101001010101101000001001111101001100000101100011101000100110000000100101100100011011011001010110"</span>)</span><br><span class="line">qr.make(fit=<span class="number">1</span>)</span><br><span class="line">img = qr.make_image()</span><br><span class="line">img.save(<span class="string">"qr.png"</span>)</span><br><span class="line"><span class="comment"># 扫出来结果貌似一直是它本身，看了半天决定上网上搜一下扫出来的结果。。。如下</span></span><br><span class="line">d = <span class="string">"110011011011001100001110011111110111111001011000010101011011111100101110011101001111101011110111111100001110001001100001110101111010010111111110001101001010000110110000110010001100111111101"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">189</span>, <span class="number">7</span>):</span><br><span class="line">    s = d[i:i+<span class="number">7</span>]</span><br><span class="line">    print(chr(int(s, <span class="number">2</span>)), end=<span class="string">''</span>)</span><br></pre></td></tr></table></figure></li></ul><h1 id="Exif"><a href="#Exif" class="headerlink" title="Exif"></a>Exif</h1><h2 id="什么是Exif"><a href="#什么是Exif" class="headerlink" title="什么是Exif"></a>什么是Exif</h2><ul><li>可交换图像文件格式（英语：Exchangeable image file format），是专门为数码相机的照片设定的文件格式，可以记录数码照片的属性信息和拍摄数据。</li><li>Exif信息是可以被任意编辑的，因此只有参考的功能。</li><li>Exif信息以0xFFE1作为开头标记，后两个字节表示Exif信息的长度。所以Exif信息最大为64 kB，而内部采用TIFF格式。</li><li><a href="https://zh.wikipedia.org/zh-hans/EXIF" title="Exif数据结构" target="_blank" rel="noopener">Exif数据结构</a><h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2>使用Exiftool打开图片，可以在<code>Credit</code>中看到一串形似ascii码的数字，查表可得到flag。<center><img src="https://s1.ax1x.com/2020/03/13/8MiuZ9.jpg" alt="8MiuZ9.jpg" border="0"></center></li></ul><h1 id="PkCrack"><a href="#PkCrack" class="headerlink" title="PkCrack"></a>PkCrack</h1><h2 id="已知明文攻击"><a href="#已知明文攻击" class="headerlink" title="已知明文攻击"></a>已知明文攻击</h2><ul><li>大致原理是当你不知道一个zip的密码，但是你有zip中的一个已知文件（文件大小要大于12Byte）或者已经通过其他手段知道zip加密文件中的某些内容时，因为同一个zip压缩包里的所有文件都是使用同一个加密密钥来加密的，所以可以用已知文件来找加密密钥，利用密钥来解锁其他加密文件。<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2>如图所示，选自被加密的文件和现有的明文，很快便可以生成被加密文件的解密版，打开即可看到flag。<center><img src="https://s1.ax1x.com/2020/03/13/8MFVYt.jpg" alt="8MFVYt.jpg" border="0"></center></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Blue-whale OJ&lt;br&gt;Another 01Game、Exif、PkCrack writeup.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="blue-whale" scheme="https://purewhitywhite.github.io/tags/blue-whale/"/>
+    
+      <category term="Misc" scheme="https://purewhitywhite.github.io/tags/Misc/"/>
+    
+  </entry>
   
   <entry>
     <title>Stage1Day5 Web</title>
