@@ -6,20 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://purewhitywhite.github.io">
-  <title>Archives: 2020 | pur3wh1tywhite</title>
+  <title>Stage1Day7 pwn | pur3wh1tywhite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="pur3wh1tywhite&apos;s blog">
-<meta name="keywords" content="a blog based on Hexo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="pur3wh1tywhite">
-<meta property="og:url" content="https://purewhitywhite.github.io/archives/2020/index.html">
+  <meta name="description" content="Blue-whale OJbof writeup.">
+<meta name="keywords" content="blue-whale,pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stage1Day7 pwn">
+<meta property="og:url" content="https://purewhitywhite.github.io/2020-03-14/Stage1Day7-pwn/index.html">
 <meta property="og:site_name" content="pur3wh1tywhite">
-<meta property="og:description" content="pur3wh1tywhite&apos;s blog">
+<meta property="og:description" content="Blue-whale OJbof writeup.">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8QTNLT.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lSDtP.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lpu38.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lphKe.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lpoVA.jpg">
+<meta property="og:updated_time" content="2020-03-14T15:01:17.721Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pur3wh1tywhite">
-<meta name="twitter:description" content="pur3wh1tywhite&apos;s blog">
+<meta name="twitter:title" content="Stage1Day7 pwn">
+<meta name="twitter:description" content="Blue-whale OJbof writeup.">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/14/8QTNLT.jpg">
   
   
     <link rel="icon" href="/img/myicon.ico">
@@ -154,36 +161,116 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Stage1Day7-pwn" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-14/Stage1Day7-pwn/" class="archive-article-date">
-  	<time datetime="2020-03-14T08:47:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-14/Stage1Day7-pwn/">Stage1Day7 pwn</a>
+    <h1 class="article-title" itemprop="name">
+      Stage1Day7 pwn
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+		
+			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">734字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+
+		
+		<!--显示阅读次数-->
+
+  
+ 
+
+  <span id="busuanzi_container_page_pv" style="color:#636363;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+
+
+<!--显示阅读次数完毕-->
+        
+        <a href="/2020-03-14/Stage1Day7-pwn/" class="archive-article-date">
+  	<time datetime="2020-03-14T08:47:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+	
+	
+      
+        <p>Blue-whale OJ<br>bof writeup.</p>
+<a id="more"></a>
+<h1 id="bof-buffer-overflow"><a href="#bof-buffer-overflow" class="headerlink" title="bof(buffer overflow)"></a>bof(buffer overflow)</h1><h2 id="查看文件类型-amp-保护机制"><a href="#查看文件类型-amp-保护机制" class="headerlink" title="查看文件类型&amp;保护机制"></a>查看文件类型&amp;保护机制</h2><center><img src="https://s1.ax1x.com/2020/03/14/8QTNLT.jpg" alt="8QTNLT.jpg" border="0"></center>
+可以看到这是一个32位的elf文件，开启了NX保护。<br>
+checksec检查的保护机制：
+
+<ul>
+<li><p>STACKCANNARY(栈保护)：这个选项表示栈保护功能有没有开启。<br>栈溢出保护是一种缓冲区溢出攻击缓解手段，当函数存在缓冲区溢出攻击漏洞时，攻击者可以覆盖栈上的返回地址来让shellcode能够得到执行。当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canary。</p>
+</li>
+<li><p>NX(DEP)：NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
+</li>
+<li><p>PIE（ASLR）：一般情况下NX（Windows平台上称其为DEP）和地址空间分布随机化（ASLR）会同时工作。ASLR和DEP配合使用，能有效阻止攻击者在堆栈上运行恶意代码。<br>内存地址随机化机制（address space layout randomization)，有以下三种情况：<br>0 - 表示关闭进程地址空间随机化。<br>1 - 表示将mmap的基址，stack和vdso页面随机化。<br>2 - 表示在1的基础上增加栈（heap）的随机化。</p>
+</li>
+<li><p>RELRO：设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。RELRO为” Partial RELRO”，说明我们对GOT表具有写权限。</p>
+</li>
+</ul>
+<blockquote>
+<p>reference：<a href="https://bbs.pediy.com/thread-250538.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-250538.htm</a></p>
+</blockquote>
+<p>进入IDA查看漏洞部分汇编代码：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buf= </span><span class="keyword">byte </span>ptr -<span class="number">1</span>Ch</span><br><span class="line"><span class="keyword">push </span>   ebp</span><br><span class="line"><span class="keyword">mov </span>    ebp, esp</span><br><span class="line"><span class="keyword">sub </span>    esp, <span class="number">28</span>h</span><br><span class="line"><span class="comment">; 4:   sub_804851B();</span></span><br><span class="line"><span class="symbol">call</span>    <span class="keyword">sub_804851B</span></span><br><span class="line"><span class="keyword">; </span><span class="number">5</span>:   <span class="keyword">sub_804854A();</span></span><br><span class="line"><span class="keyword">call </span>   <span class="keyword">sub_804854A</span></span><br><span class="line"><span class="keyword">; </span><span class="number">6</span>:   puts(<span class="string">"can you pwn me?"</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">sub </span>    esp, <span class="number">0</span>Ch</span><br><span class="line"><span class="keyword">push </span>   offset s        <span class="comment">; "can you pwn me?"</span></span><br><span class="line"><span class="symbol">call</span>    _puts</span><br><span class="line"><span class="comment">; 7:   return read(0, &amp;buf, 0x100u);</span></span><br><span class="line"><span class="keyword">add </span>    esp, <span class="number">10</span>h</span><br><span class="line"><span class="keyword">sub </span>    esp, <span class="number">4</span></span><br><span class="line"><span class="keyword">push </span>   <span class="number">100</span>h            <span class="comment">; nbytes</span></span><br><span class="line"><span class="symbol">lea</span>     eax, [ebp+<span class="keyword">buf]</span></span><br><span class="line"><span class="keyword">push </span>   eax             <span class="comment">; buf</span></span><br><span class="line"><span class="keyword">push </span>   <span class="number">0</span>               <span class="comment">; fd</span></span><br><span class="line"><span class="symbol">call</span>    _read</span><br><span class="line"><span class="keyword">add </span>    esp, <span class="number">10</span>h</span><br><span class="line"><span class="keyword">nop</span></span><br><span class="line"><span class="keyword">leave</span></span><br><span class="line"><span class="keyword">retn</span></span><br></pre></td></tr></table></figure>
+
+<p>结合反编译后结果:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ssize_t</span> sub_8048573()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [esp+Ch] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_804851B();</span><br><span class="line">  sub_804854A();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"can you pwn me?"</span>);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>几点分析：</p>
+<ul>
+<li><p>buf开辟空间大小：1Ch（buf= byte ptr -1Ch）</p>
+</li>
+<li><p>read函数向buf里可写100h字节的数据→<strong>栈溢出</strong></p>
+</li>
+<li><p>参数从右向左入栈+调用方清理栈（每次call之后就add esp,10h）=__cdecl </p>
+<center><img src="https://s1.ax1x.com/2020/03/14/8lSDtP.jpg" alt="8lSDtP.jpg" border="0"></center>
+</li>
+<li><p>栈结构以及调用关系：</p>
+<center><img src="https://s1.ax1x.com/2020/03/14/8lpu38.jpg" alt="8lpu38.jpg" border="0"></center>
+</li>
+<li><p>如何getshell：<code>system(&#39;/bin/sh&#39;);</code></p>
+</li>
+<li><p>system()和/bin/sh位置：</p>
+<center><img src="https://s1.ax1x.com/2020/03/14/8lphKe.jpg" alt="8lphKe.jpg" border="0"></center>
+<center><img src="https://s1.ax1x.com/2020/03/14/8lpoVA.jpg" alt="8lpoVA.jpg" border="0"></center>
+</li>
+<li><p>确定覆盖位数和方法：<br>1ch * <code>a</code>(buf)+4 * <code>a</code>(read()函数ebp)+<code>0804A05C</code>(system()地址)+4 * <code>a</code>(system()的虚拟返回地址)+<code>0804A02C</code>(system()的参数)</p>
+<blockquote>
+<p>对exp的编写还是不太熟悉，有待进一步学习</p>
+</blockquote>
+</li>
+</ul>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -199,355 +286,88 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-13/Stage1Day6-Misc/" class="archive-article-date">
-  	<time datetime="2020-03-13T14:59:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020-03-13/Stage1Day6-Misc/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Stage1Day6 Misc</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-13/Stage1Day6-Misc/">Stage1Day6 Misc</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Misc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bof-buffer-overflow"><span class="toc-number">1.</span> <span class="toc-text">bof(buffer overflow)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看文件类型-amp-保护机制"><span class="toc-number">1.1.</span> <span class="toc-text">查看文件类型&amp;保护机制</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-12/Stage1Day5-Web/" class="archive-article-date">
-  	<time datetime="2020-03-12T11:38:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-12</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-12/Stage1Day5-Web/">Stage1Day5 Web</a>
-    </h1>
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '6283619ae41f46801ca2',
+  	clientSecret: '830d4b01fa756b6bc8a174fb1b4daf2156bdcf54',
+  	repo: 'blog_comment',
+  	owner: 'purewhitywhite',
+  	admin: ['purewhitywhite'],
+  	id: 'Sat Mar 14 2020 16:47:23 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-11/Stage1Day4-Reverse-Misc/" class="archive-article-date">
-  	<time datetime="2020-03-11T10:46:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-11/Stage1Day4-Reverse-Misc/">Stage1Day4 Reverse&amp;Misc</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Misc</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reverse</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-10/Stage1Day3-Web-Misc/" class="archive-article-date">
-  	<time datetime="2020-03-10T11:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-10/Stage1Day3-Web-Misc/">Stage1Day3 Web&amp;Misc</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Misc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-09/Stage1Day2-Web/" class="archive-article-date">
-  	<time datetime="2020-03-09T14:12:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-09/Stage1Day2-Web/">Stage1Day2 Web</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-03-08/Stage1Day1-Web/" class="archive-article-date">
-  	<time datetime="2020-03-08T11:46:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-03-08/Stage1Day1-Web/">Stage1Day1 Web</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-01-20/毕业设计笔记/" class="archive-article-date">
-  	<time datetime="2020-01-20T08:11:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-01-20/毕业设计笔记/">毕业设计笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IDS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020-01-07/实习日记/" class="archive-article-date">
-  	<time datetime="2020-01-07T09:08:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020-01-07/实习日记/">实习日记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工作</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -577,8 +397,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
