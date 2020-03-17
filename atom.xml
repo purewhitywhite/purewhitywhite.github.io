@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://purewhitywhite.github.io/"/>
-  <updated>2020-03-16T13:45:36.792Z</updated>
+  <updated>2020-03-17T15:35:39.310Z</updated>
   <id>https://purewhitywhite.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Stage1Day10 Misc</title>
+    <link href="https://purewhitywhite.github.io/2020-03-17/Stage1Day10-Misc/"/>
+    <id>https://purewhitywhite.github.io/2020-03-17/Stage1Day10-Misc/</id>
+    <published>2020-03-17T15:05:09.000Z</published>
+    <updated>2020-03-17T15:35:39.310Z</updated>
+    
+    <content type="html"><![CDATA[<p>Log writeup.</p><a id="more"></a><h2 id="URL解码"><a href="#URL解码" class="headerlink" title="URL解码"></a>URL解码</h2><p>打开access.log文件可以看到这是一份被sqlmap扫描过的主机的日志文件，先url解码提高可读性：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">log = open(<span class="string">'access.log'</span>, <span class="string">'r'</span>)</span><br><span class="line">f = open(<span class="string">'output.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> log.readlines():</span><br><span class="line">    f.write(parse.unquote(i))</span><br></pre></td></tr></table></figure><p>观察解码后的文件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:17 +0000] &quot;GET /?username=admin&amp;password=b HTTP/1.1&quot; 200 183 &quot;http://192.168.247.130:8899/&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:17 +0000] &quot;GET /?username=admin&amp;password=b&amp;wcDa=2205 AND 1=1 UNION ALL SELECT 1,NULL,&apos;&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;&apos;,table_name FROM information_schema.tables WHERE 2&gt;1--/**/; EXEC xp_cmdshell(&apos;cat ../../../etc/passwd&apos;)# HTTP/1.1&quot; 200 183 &quot;http://192.168.247.130:8899/&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:18 +0000] &quot;GET /?username=admin&amp;password=b HTTP/1.1&quot; 200 183 &quot;http://192.168.247.130:8899/&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:18 +0000] &quot;GET /?username=2754&amp;password=b HTTP/1.1&quot; 200 183 &quot;http://192.168.247.130:8899/&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:18 +0000] &quot;GET /?username=admin&apos;,.((&quot;.),.&amp;password=b HTTP/1.1&quot; 200 182 &quot;http://192.168.247.130:8899/&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">……</span><br></pre></td></tr></table></figure><h2 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h2><p>一开始没看出啥所以然，拖到最后看到了熟悉的二分法盲注</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;64) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 183 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;96) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 183 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;112) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 182 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;104) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 182 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;100) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 183 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;102) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 182 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br><span class="line">192.168.247.129 - - [24/Dec/2017:08:21:53 +0000] &quot;GET /?username=admin&apos; RLIKE (SELECT (CASE WHEN (ORD(MID((SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1),1,1))&gt;101) THEN 0x61646d696e ELSE 0x28 END))-- eYTO&amp;password=b HTTP/1.1&quot; 200 183 &quot;-&quot; &quot;sqlmap/1.1.12#stable (http://sqlmap.org)&quot;</span><br></pre></td></tr></table></figure><ul><li>二分法思路</li></ul><ol><li>mid为left和right的中间值，mid是否和left相等，相等跳到5，如果不等跳到2</li><li>请求mid，如果返回正确的页面跳到3，如果返回错误的页面跳到4</li><li>返回页面正确，将right赋值为mid</li><li>返回页面错误，将left赋值为mid</li><li>返回mid值</li></ol><ul><li>sql语句解析</li></ul><p>RLIKE(),不区分大小写的不完全匹配，此处用来将admin与二分查找后再判断的结果(<code>CASE WHEN ……THEN 0x61646d696e ELSE 0x28 END</code>)进行匹配，如果匹配成功则说明查找语句正确<br>ORD(),返回字符串第一个字符的 ASCII 值,MID()用来提取字符<br>SELECT IFNULL(CAST(flag AS CHAR),0x20) FROM walawala.fl4g ORDER BY flag LIMIT 0,1) 就是在walawala.fl4g库中查找flag，IFNULL函数用于将NULL值替换为另外一个值</p><ul><li>逐个字符分析二分法的结果<br>每次ORD(MID())查询的参数加一，说明查到了一个字符，于是就以之为每个字符的分界。<br>以上面第一个为例，判断第一个字符是否大于64√→是否大于96√→是否大于112×→是否大于104×是否大于100√→是否大于102×→是否大于101<br>经过如上的一系列判断，即可得知第一个字符为f。逐个字符分析即可得到flag。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Log writeup.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="blue-whale" scheme="https://purewhitywhite.github.io/tags/blue-whale/"/>
+    
+      <category term="Misc" scheme="https://purewhitywhite.github.io/tags/Misc/"/>
+    
+  </entry>
   
   <entry>
     <title>Stage1Day9 pwn</title>
@@ -175,9 +198,9 @@
     
       <category term="blue-whale" scheme="https://purewhitywhite.github.io/tags/blue-whale/"/>
     
-      <category term="Web" scheme="https://purewhitywhite.github.io/tags/Web/"/>
-    
       <category term="Misc" scheme="https://purewhitywhite.github.io/tags/Misc/"/>
+    
+      <category term="Web" scheme="https://purewhitywhite.github.io/tags/Web/"/>
     
   </entry>
   
