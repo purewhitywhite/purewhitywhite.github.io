@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://purewhitywhite.github.io/"/>
-  <updated>2020-03-18T15:32:09.840Z</updated>
+  <updated>2020-03-20T15:35:16.591Z</updated>
   <id>https://purewhitywhite.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Binary Bomb Phase1</title>
+    <link href="https://purewhitywhite.github.io/2020-03-20/Binary-Bomb-Phase1/"/>
+    <id>https://purewhitywhite.github.io/2020-03-20/Binary-Bomb-Phase1/</id>
+    <published>2020-03-20T14:27:04.000Z</published>
+    <updated>2020-03-20T15:35:16.591Z</updated>
+    
+    <content type="html"><![CDATA[<p>Binary Bomb Phase1 writeup.</p><a id="more"></a><blockquote><p>大概了解了一下，这应该是类似于逆向的题目吧，解题的关键在于找到密码生成的方法，或者修改汇编程序绕过密码验证。</p></blockquote><p>使用<code>gdb *filename*</code>启动gdb后使用<code>gdb l</code>查看源代码：<br><center><img src="https://s1.ax1x.com/2020/03/20/82IcHs.jpg" alt="82IcHs.jpg" border="0"></center></p><p>可见<code>phase_1</code>就是阶段一的入口点，在此设置断点：<code>gdb b phase_1</code>后运行程序<code>gdb r</code>：<center><img src="https://s1.ax1x.com/2020/03/20/82oV8f.jpg" alt="82oV8f.jpg" border="0"></center></p><p>输入一些内容后按回车键回到gdb，查看汇编代码<code>gdb disassemb</code>：<center><img src="https://s1.ax1x.com/2020/03/20/82o6xO.jpg" alt="82o6xO.jpg" border="0"></center></p><p>这段汇编代码的大致含义：开辟栈空间，将<code>0x804a124</code>处的数据移入[esp+4]的位置，将<code>esp+20</code>处的数据（应该是输入的字符串作为参数）移到eax中，将eax中的值放入栈顶，请求strings_not_equal函数，根据返回值（eax）的值是否为0，从而决定是否引爆炸弹。<br>查看<code>0x804a124</code>处的数据(s:以字符串形式输出)：<code>gdb x/s 0x804a124</code><br><center><img src="https://s1.ax1x.com/2020/03/20/82Oiy6.jpg" alt="82Oiy6.jpg" border="0"><center></center></center></p><p>于是知道了破解phase1的密码<code>I am the mayor. I can do anything I want.</code>，测试：<br><center><img src="https://s1.ax1x.com/2020/03/20/82OlOf.jpg" alt="82OlOf.jpg" border="0"></center></p><ul><li>AT&amp;T太辣眼睛？：<code>set disassembly-flavor intel</code><center><img src="https://s1.ax1x.com/2020/03/20/82XjPJ.jpg" alt="82XjPJ.jpg" border="0"></center></li></ul><p><a href="https://www.cnblogs.com/hdk1993/p/4820353.html" target="_blank" rel="noopener">AT&amp;T和Inter区别</a></p><ul><li><a href="http://c.biancheng.net/view/3567.html" target="_blank" rel="noopener">跳转指令集合</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Binary Bomb Phase1 writeup.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Reverse" scheme="https://purewhitywhite.github.io/tags/Reverse/"/>
+    
+  </entry>
   
   <entry>
     <title>Stage1Day11 pwn&amp;Misc</title>
@@ -196,11 +217,11 @@
     
     
     
+      <category term="Reverse" scheme="https://purewhitywhite.github.io/tags/Reverse/"/>
+    
       <category term="blue-whale" scheme="https://purewhitywhite.github.io/tags/blue-whale/"/>
     
       <category term="Misc" scheme="https://purewhitywhite.github.io/tags/Misc/"/>
-    
-      <category term="Reverse" scheme="https://purewhitywhite.github.io/tags/Reverse/"/>
     
   </entry>
   
