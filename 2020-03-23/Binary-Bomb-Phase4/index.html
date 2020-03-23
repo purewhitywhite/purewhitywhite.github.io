@@ -6,21 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://purewhitywhite.github.io">
-  <title>tags | pur3wh1tywhite</title>
+  <title>Binary Bomb Phase4 | pur3wh1tywhite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="pur3wh1tywhite&apos;s blog">
-<meta name="keywords" content="a blog based on Hexo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://purewhitywhite.github.io/tags/index.html">
+  <meta name="description" content="Binary Bomb Phase4 writeup.">
+<meta name="keywords" content="Reverse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Binary Bomb Phase4">
+<meta property="og:url" content="https://purewhitywhite.github.io/2020-03-23/Binary-Bomb-Phase4/index.html">
 <meta property="og:site_name" content="pur3wh1tywhite">
-<meta property="og:description" content="pur3wh1tywhite&apos;s blog">
+<meta property="og:description" content="Binary Bomb Phase4 writeup.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-21T01:16:46.924Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/23/87mpcD.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/23/87mG40.jpg">
+<meta property="og:updated_time" content="2020-03-23T08:29:23.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="pur3wh1tywhite&apos;s blog">
+<meta name="twitter:title" content="Binary Bomb Phase4">
+<meta name="twitter:description" content="Binary Bomb Phase4 writeup.">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/23/87mpcD.jpg">
   
   
     <link rel="icon" href="/img/myicon.ico">
@@ -155,14 +158,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-Binary-Bomb-Phase4" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Binary Bomb Phase4
     </h1>
   
 
@@ -172,7 +175,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">531字</span>
       </span>
     </span>
 
@@ -181,7 +184,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">2分</span>
       </span>
     </span>
 </div>
@@ -189,10 +192,18 @@
 		
 		<!--显示阅读次数-->
 
+  
+ 
+
+  <span id="busuanzi_container_page_pv" style="color:#636363;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+
+
 <!--显示阅读次数完毕-->
         
-        <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2020-01-20T09:08:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-20</time>
+        <a href="/2020-03-23/Binary-Bomb-Phase4/" class="archive-article-date">
+  	<time datetime="2020-03-23T05:57:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
       </header>
@@ -201,13 +212,38 @@
 	
 	
       
-        
+        <p>Binary Bomb Phase4 writeup.</p>
+<a id="more"></a>
+<h1 id="Binary-Bomb-Phase4"><a href="#Binary-Bomb-Phase4" class="headerlink" title="Binary Bomb Phase4"></a>Binary Bomb Phase4</h1><p>获取数据部分跟上一关一样，读入两个数字，不赘述</p>
+<h2 id="参数大小判断"><a href="#参数大小判断" class="headerlink" title="参数大小判断"></a>参数大小判断</h2><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text:</span>08048D37                 <span class="keyword">mov</span>     <span class="built_in">eax</span>, [<span class="built_in">esp</span>+<span class="number">2Ch</span>+var_14]</span><br><span class="line"><span class="symbol">.text:</span>08048D3B                 <span class="keyword">sub</span>     <span class="built_in">eax</span>, <span class="number">2</span></span><br><span class="line"><span class="symbol">.text:</span>08048D3E                 <span class="keyword">cmp</span>     <span class="built_in">eax</span>, <span class="number">2</span></span><br><span class="line"><span class="symbol">.text:</span>08048D41                 <span class="keyword">jbe</span>     short loc_8048D48</span><br></pre></td></tr></table></figure>
+
+<p>在这一部分中判断了输入的第二个参数是否小于等于4。若大于4则爆炸。</p>
+<h2 id="func4"><a href="#func4" class="headerlink" title="func4"></a>func4</h2><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text:</span>08048D48                 <span class="keyword">mov</span>     <span class="built_in">eax</span>, [<span class="built_in">esp</span>+<span class="number">2Ch</span>+var_14]</span><br><span class="line"><span class="symbol">.text:</span>08048D4C                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">2Ch</span>+var_28], <span class="built_in">eax</span></span><br><span class="line"><span class="symbol">.text:</span>08048D50                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">2Ch</span>+var_2C], <span class="number">8</span></span><br><span class="line"><span class="symbol">.text:</span>08048D57                 <span class="keyword">call</span>    func4</span><br><span class="line"><span class="symbol">.text:</span>08048D5C                 <span class="keyword">cmp</span>     <span class="built_in">eax</span>, [<span class="built_in">esp</span>+<span class="number">2Ch</span>+var_10]</span><br><span class="line"><span class="symbol">.text:</span>08048D60                 <span class="keyword">jz</span>      short loc_8048D67</span><br></pre></td></tr></table></figure>
+
+<p>这部分先为func4设置了变量，第一个变量为8，第二个变量为输入的第二个数字。调用func4后注意到将放在<code>eax</code>中的返回值与输入的第一个数字进行比较，若相等则可以正常返回。<br>以func4的参数是（8,4）为例，<code>nexti</code>运行到<code>cmp eax, [esp+2Ch+var_10]</code>指令后<code>info regis</code>查看eax中的值：<br><center><img src="https://s1.ax1x.com/2020/03/23/87mpcD.jpg" alt="87mpcD.jpg" border="0"></center><br>查看效果：<br><center><img src="https://s1.ax1x.com/2020/03/23/87mG40.jpg" alt="87mG40.jpg" border="0"><center></center></center></p>
+<p>结合IDA反编译结果分析func4的汇编指令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">func4</span><span class="params">(<span class="keyword">int</span> a1, <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// edi</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( a1 &lt;= <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  result = a2;</span><br><span class="line">  <span class="keyword">if</span> ( a1 != <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = func4(a1 - <span class="number">1</span>, a2) + a2;</span><br><span class="line">    result = v3 + func4(a1 - <span class="number">2</span>, a2);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text:</span>08048CC1 var_1C          = <span class="built_in">dword</span> <span class="built_in">ptr</span> -<span class="number">1Ch</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC1 var_18          = <span class="built_in">dword</span> <span class="built_in">ptr</span> -<span class="number">18h</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC1 arg_0           = <span class="built_in">dword</span> <span class="built_in">ptr</span>  <span class="number">4</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC1 arg_4           = <span class="built_in">dword</span> <span class="built_in">ptr</span>  <span class="number">8</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC1                 <span class="keyword">push</span>    <span class="built_in">edi</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC2                 <span class="keyword">push</span>    <span class="built_in">esi</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC3                 <span class="keyword">push</span>    <span class="built_in">ebx</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC4                 <span class="keyword">sub</span>     <span class="built_in">esp</span>, <span class="number">10h</span></span><br><span class="line"><span class="symbol">.text:</span>08048CC7                 <span class="keyword">mov</span>     <span class="built_in">ebx</span>, [<span class="built_in">esp</span>+<span class="number">1Ch</span>+arg_0]</span><br><span class="line"><span class="symbol">.text:</span>08048CCB                 <span class="keyword">mov</span>     <span class="built_in">esi</span>, [<span class="built_in">esp</span>+<span class="number">1Ch</span>+arg_4]</span><br><span class="line"><span class="symbol">.text:</span>08048CCF                 <span class="keyword">test</span>    <span class="built_in">ebx</span>, <span class="built_in">ebx</span></span><br><span class="line"><span class="symbol">.text:</span>08048CD1                 <span class="keyword">jle</span>     short loc_8048CFF     //即if ( a1 &lt;= <span class="number">0</span> ) return <span class="number">0</span><span class="comment">;</span></span><br><span class="line"><span class="symbol">.text:</span>08048CD3                 <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="built_in">esi</span>//result=a2</span><br><span class="line"><span class="symbol">.text:</span>08048CD5                 <span class="keyword">cmp</span>     <span class="built_in">ebx</span>, <span class="number">1</span></span><br><span class="line"><span class="symbol">.text:</span>08048CD8                 <span class="keyword">jz</span>      short loc_8048D04     //即if ( a1 != <span class="number">1</span> )</span><br><span class="line"><span class="symbol">.text:</span>08048CDA                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">1Ch</span>+var_18], <span class="built_in">esi</span></span><br><span class="line"><span class="symbol">.text:</span>08048CDE                 <span class="keyword">lea</span>     <span class="built_in">eax</span>, [<span class="built_in">ebx</span>-<span class="number">1</span>]</span><br><span class="line"><span class="symbol">.text:</span>08048CE1                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">1Ch</span>+var_1C], <span class="built_in">eax</span></span><br><span class="line"><span class="symbol">.text:</span>08048CE4                 <span class="keyword">call</span>    func4     //即func4(a1-<span class="number">1</span>,a2)</span><br><span class="line"><span class="symbol">.text:</span>08048CE9                 <span class="keyword">lea</span>     <span class="built_in">edi</span>, [<span class="built_in">eax</span>+<span class="built_in">esi</span>]     //<span class="built_in">edi</span>即v3，v3=func4(a1 - <span class="number">1</span>, a2) + a2</span><br><span class="line"><span class="symbol">.text:</span>08048CEC                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">1Ch</span>+var_18], <span class="built_in">esi</span></span><br><span class="line"><span class="symbol">.text:</span>08048CF0                 <span class="keyword">sub</span>     <span class="built_in">ebx</span>, <span class="number">2</span></span><br><span class="line"><span class="symbol">.text:</span>08048CF3                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">1Ch</span>+var_1C], <span class="built_in">ebx</span></span><br><span class="line"><span class="symbol">.text:</span>08048CF6                 <span class="keyword">call</span>    func4     //即func4(a1-<span class="number">2</span>,a2)</span><br><span class="line"><span class="symbol">.text:</span>08048CFB                 <span class="keyword">add</span>     <span class="built_in">eax</span>, <span class="built_in">edi</span>     //return v3+func4(a1 - <span class="number">2</span>, a2)</span><br><span class="line"><span class="symbol">.text:</span>08048CFD                 <span class="keyword">jmp</span>     short loc_8048D04</span><br><span class="line"><span class="symbol">.text:</span>08048CFF                 <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="number">0</span></span><br><span class="line"><span class="symbol">.text:</span>08048D04                 <span class="keyword">add</span>     <span class="built_in">esp</span>, <span class="number">10h</span></span><br><span class="line"><span class="symbol">.text:</span>08048D07                 <span class="keyword">pop</span>     <span class="built_in">ebx</span></span><br><span class="line"><span class="symbol">.text:</span>08048D08                 <span class="keyword">pop</span>     <span class="built_in">esi</span></span><br><span class="line"><span class="symbol">.text:</span>08048D09                 <span class="keyword">pop</span>     <span class="built_in">edi</span></span><br><span class="line"><span class="symbol">.text:</span>08048D0A                 <span class="keyword">retn</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="计算答案"><a href="#计算答案" class="headerlink" title="计算答案"></a>计算答案</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func4</span><span class="params">(a1, a2)</span>:</span></span><br><span class="line">    result = <span class="number">0</span></span><br><span class="line">    v3 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    result = a2</span><br><span class="line">    <span class="keyword">if</span> a1 != <span class="number">1</span>:</span><br><span class="line">        v3 = func4(a1<span class="number">-1</span>, a2) + a2</span><br><span class="line">        result = v3 + func4(a1<span class="number">-2</span>, a2)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(func4(<span class="number">8</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
       
       
     </div>
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reverse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -219,6 +255,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2020-03-22/Binary-Bomb-Phase3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Binary Bomb Phase3</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -240,7 +286,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Binary-Bomb-Phase4"><span class="toc-number">1.</span> <span class="toc-text">Binary Bomb Phase4</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参数大小判断"><span class="toc-number">1.1.</span> <span class="toc-text">参数大小判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#func4"><span class="toc-number">1.2.</span> <span class="toc-text">func4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算答案"><span class="toc-number">1.3.</span> <span class="toc-text">计算答案</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -250,6 +296,36 @@
 </aside>
 
 
+
+  
+  
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '6283619ae41f46801ca2',
+  	clientSecret: '830d4b01fa756b6bc8a174fb1b4daf2156bdcf54',
+  	repo: 'blog_comment',
+  	owner: 'purewhitywhite',
+  	admin: ['purewhitywhite'],
+  	id: 'Mon Mar 23 2020 13:57:03 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -279,7 +355,7 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
