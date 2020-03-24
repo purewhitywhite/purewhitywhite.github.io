@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://purewhitywhite.github.io/"/>
-  <updated>2020-03-23T08:29:23.902Z</updated>
+  <updated>2020-03-24T15:24:14.077Z</updated>
   <id>https://purewhitywhite.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Binary Bomb Phase5</title>
+    <link href="https://purewhitywhite.github.io/2020-03-24/Binary-Bomb-Phase5/"/>
+    <id>https://purewhitywhite.github.io/2020-03-24/Binary-Bomb-Phase5/</id>
+    <published>2020-03-24T08:31:11.000Z</published>
+    <updated>2020-03-24T15:24:14.077Z</updated>
+    
+    <content type="html"><![CDATA[<p>Binary Bomb Phase5 writeup.</p><a id="more"></a><h1 id="Binary-Bomb-Phase5"><a href="#Binary-Bomb-Phase5" class="headerlink" title="Binary Bomb Phase5"></a>Binary Bomb Phase5</h1><h2 id="获取字符串部分"><a href="#获取字符串部分" class="headerlink" title="获取字符串部分"></a>获取字符串部分</h2><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text:</span>08048D6F                 <span class="keyword">mov</span>     <span class="built_in">ebx</span>, [<span class="built_in">esp</span>+<span class="number">1Ch</span>+arg_0]</span><br><span class="line"><span class="symbol">.text:</span>08048D73                 <span class="keyword">mov</span>     [<span class="built_in">esp</span>+<span class="number">1Ch</span>+var_1C], <span class="built_in">ebx</span></span><br><span class="line"><span class="symbol">.text:</span>08048D76                 <span class="keyword">call</span>    string_length   <span class="comment">; Call Procedure</span></span><br><span class="line"><span class="symbol">.text:</span>08048D7B                 <span class="keyword">cmp</span>     <span class="built_in">eax</span>, <span class="number">6</span>          <span class="comment">; Compare Two Operands</span></span><br><span class="line"><span class="symbol">.text:</span>08048D7E                 <span class="keyword">jz</span>      short loc_8048D85 <span class="comment">; Jump if Zero (ZF=1)</span></span><br><span class="line"><span class="symbol">.text:</span>08048D80                 <span class="keyword">call</span>    explode_bomb    <span class="comment">; Call Procedure</span></span><br></pre></td></tr></table></figure><p>这部分的目的是验证输入的字符串长度是否为6，不为6则会爆炸。</p><h2 id="逐字符判断"><a href="#逐字符判断" class="headerlink" title="逐字符判断"></a>逐字符判断</h2><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text:</span>08048D85                 <span class="keyword">mov</span>     <span class="built_in">edx</span>, <span class="number">0</span></span><br><span class="line"><span class="symbol">.text:</span>08048D8A                 <span class="keyword">mov</span>     <span class="built_in">eax</span>, <span class="number">0</span></span><br><span class="line"><span class="symbol">.text:</span>08048D8F                 <span class="keyword">movzx</span>   <span class="built_in">ecx</span>, <span class="built_in">byte</span> <span class="built_in">ptr</span> [<span class="built_in">ebx</span>+<span class="built_in">eax</span>] <span class="comment">; Move with Zero-Extend</span></span><br><span class="line"><span class="symbol">.text:</span>08048D93                 <span class="keyword">and</span>     <span class="built_in">ecx</span>, <span class="number">0Fh</span>        <span class="comment">; Logical AND</span></span><br><span class="line"><span class="symbol">.text:</span>08048D96                 <span class="keyword">add</span>     <span class="built_in">edx</span>, <span class="built_in">ds</span>:array_3141[<span class="built_in">ecx</span>*<span class="number">4</span>] <span class="comment">; Add</span></span><br><span class="line"><span class="symbol">.text:</span>08048D9D                 <span class="keyword">add</span>     <span class="built_in">eax</span>, <span class="number">1</span>          <span class="comment">; Add</span></span><br><span class="line"><span class="symbol">.text:</span>08048DA0                 <span class="keyword">cmp</span>     <span class="built_in">eax</span>, <span class="number">6</span>          <span class="comment">; Compare Two Operands</span></span><br><span class="line"><span class="symbol">.text:</span>08048DA3                 <span class="keyword">jnz</span>     short loc_8048D8F <span class="comment">; Jump if Not Zero (ZF=0)</span></span><br><span class="line"><span class="symbol">.text:</span>08048DA5                 <span class="keyword">cmp</span>     <span class="built_in">edx</span>, <span class="number">2Ah</span>        <span class="comment">; Compare Two Operands</span></span><br><span class="line"><span class="symbol">.text:</span>08048DA8                 <span class="keyword">jz</span>      short loc_8048DAF <span class="comment">; Jump if Zero (ZF=1)</span></span><br><span class="line"><span class="symbol">.text:</span>08048<span class="keyword">DAA</span>                 <span class="keyword">call</span>    explode_bomb    <span class="comment">; Call Procedure</span></span><br></pre></td></tr></table></figure><p>这部分先逐字符以ascii码的形式存入<code>ecx</code>，<code>and     ecx, 0Fh</code>使得读入字符的高4位为零，效果如下：<br><center><img src="https://s1.ax1x.com/2020/03/24/8OG6PK.jpg" alt="8OG6PK.jpg" border="0"><img src="https://s1.ax1x.com/2020/03/24/8OGWKH.jpg" alt="8OGWKH.jpg" border="0"></center></p><blockquote><p><strong>MOVZX</strong>指令（进行全零扩展并传送）用于无符号整数，将源操作数复制到目的操作数，并把目的操作数 0 扩展到 16 位或 32 位。此处源操作数是1byte=8bit，<code>ecx</code>大小是32bit，此处的用意应该是将目的操作数扩展至<code>ecx</code>大小。</p></blockquote><p>之后将在<code>ds:array_3141[ecx*4]</code>这个数组所在的位置查到的值累加入<code>edx</code>，六次循环读完所有字符后将<code>edx</code>中的值与2Ah进行比较，若相等则可以正常返回。</p><h2 id="查看数组存放内容"><a href="#查看数组存放内容" class="headerlink" title="查看数组存放内容"></a>查看数组存放内容</h2><center><a href="https://imgchr.com/i/8OJ1Qe" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/24/8OJ1Qe.jpg" alt="8OJ1Qe.jpg" border="0"></a></center><p>可以看到输入的字符串的每个字符的ascii码的低四位分别对应了一个数组的值，于是可知通关的条件是<strong>找到这样六个字符，使得以每个字符对应的ascii码的低四位作为数组下标对应的值和为42</strong>。答案不唯一，由于<code>i</code>的ascii为0x69，第四位为9，乘4后对应的数组的值为7,6*7即可凑成42，那么答案之一可为<code>iiiiii</code>。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Binary Bomb Phase5 writeup.&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Reverse" scheme="https://purewhitywhite.github.io/tags/Reverse/"/>
+    
+  </entry>
   
   <entry>
     <title>Binary Bomb Phase4</title>
