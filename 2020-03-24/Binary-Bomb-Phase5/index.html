@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/24/8OG6PK.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/24/8OGWKH.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/24/8OJ1Qe.jpg">
-<meta property="og:updated_time" content="2020-03-24T15:24:14.077Z">
+<meta property="og:updated_time" content="2020-03-24T16:27:37.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Bomb Phase5">
 <meta name="twitter:description" content="Binary Bomb Phase5 writeup.">
@@ -227,7 +227,7 @@
 <p>之后将在<code>ds:array_3141[ecx*4]</code>这个数组所在的位置查到的值累加入<code>edx</code>，六次循环读完所有字符后将<code>edx</code>中的值与2Ah进行比较，若相等则可以正常返回。</p>
 <h2 id="查看数组存放内容"><a href="#查看数组存放内容" class="headerlink" title="查看数组存放内容"></a>查看数组存放内容</h2><center><a href="https://imgchr.com/i/8OJ1Qe" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/24/8OJ1Qe.jpg" alt="8OJ1Qe.jpg" border="0"></a></center>
 
-<p>可以看到输入的字符串的每个字符的ascii码的低四位分别对应了一个数组的值，于是可知通关的条件是<strong>找到这样六个字符，使得以每个字符对应的ascii码的低四位作为数组下标对应的值和为42</strong>。答案不唯一，由于<code>i</code>的ascii为0x69，第四位为9，乘4后对应的数组的值为7,6*7即可凑成42，那么答案之一可为<code>iiiiii</code>。</p>
+<p>可以看到输入的字符串的每个字符的ascii码的低四位分别对应了一个数组的值，于是可知通关的条件是<strong>找到这样六个字符，使得以每个字符对应的ascii码的低四位作为数组下标对应的值和为42</strong>。答案不唯一，由于<code>i</code>的ascii为0x69，低四位为9，乘4后对应的数组的值为7,6*7即可凑成42，那么答案之一可为<code>iiiiii</code>。</p>
 
       
       
@@ -258,6 +258,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020-03-25/Binary-Bomb-Phase6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Binary Bomb Phase6
+        
+      </div>
+    </a>
   
   
     <a href="/2020-03-23/Binary-Bomb-Phase4/" id="article-nav-older" class="article-nav-link-wrap">
