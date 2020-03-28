@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="一个简单的基于寄存器的的虚拟机，拥有自定义的字节码，可以解释执行任意一段与当前指令集相符的程序。">
-<meta name="keywords" content="Virtual Machine">
+<meta name="keywords" content="Disassemble">
 <meta property="og:type" content="article">
 <meta property="og:title" content="304challenge">
 <meta property="og:url" content="https://purewhitywhite.github.io/2020-03-27/304challenge/index.html">
@@ -21,7 +21,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/4.png">
-<meta property="og:updated_time" content="2020-03-27T16:06:21.801Z">
+<meta property="og:image" content="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328185718.png">
+<meta property="og:updated_time" content="2020-03-28T10:57:28.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="304challenge">
 <meta name="twitter:description" content="一个简单的基于寄存器的的虚拟机，拥有自定义的字节码，可以解释执行任意一段与当前指令集相符的程序。">
@@ -220,7 +221,10 @@
 <ul>
 <li>对虚拟机进行分析，理解其指令格式，取址方式，了解指令用法；</li>
 <li>基于对虚拟机的理解写出对应的反汇编器；</li>
-<li>对给出程序进行分析，理解hello程序所做的所有事情。<br>初步理解：<code>myvw</code>对如何执行<code>hello</code>这个hex文件给出了解释执行的方法。静态分析<code>myvw</code>的运行方式确定其使用的指令集，并以之编写反汇编器，对<code>hello</code>进行反汇编，转换为用易于理解的助记符表示的汇编程序，从而理解其工作流程。<h1 id="初步探索"><a href="#初步探索" class="headerlink" title="初步探索"></a>初步探索</h1><h2 id="通过myvm运行hello"><a href="#通过myvm运行hello" class="headerlink" title="通过myvm运行hello"></a>通过myvm运行hello</h2><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/1.png" alt><br>运行hello程序后会显示一行欢迎字符串，之后会要求输入一些数据，可以看到该程序的大致作用为将输入的数据回显出来，再输出一个换行。<br>下面尝试一下奇怪的输入试探程序的一些特殊处理：<br>键盘上的特殊键：<br><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/2.png" alt><br>输入了键盘上的”↑’键，可以看到程序并没有返回之前的几个字符，而是直接返回A，且并没有换行处理。<h2 id="使用010Editor查看文件-amp-amp-使用IDA直接反汇编文件"><a href="#使用010Editor查看文件-amp-amp-使用IDA直接反汇编文件" class="headerlink" title="使用010Editor查看文件&amp;&amp;使用IDA直接反汇编文件"></a>使用010Editor查看文件&amp;&amp;使用IDA直接反汇编文件</h2><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/3.png" alt><br>可以看到欢迎字符串存储在头部，不过对于这个未知的文件，指令与数据混杂在一起，无法确定代码和代码入口点的部分的位置，需要通过对<code>myvw</code>的分析来进一步确认。<br><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/4.png" alt><br>用IDA打开之后随便找了几个地方按c，可以得到一些汇编指令，但具体看不太明白，应该还是要从虚拟机入手。</li>
+<li>对给出程序进行分析，理解hello程序所做的所有事情。<br>初步理解：<code>myvw</code>对如何执行<code>hello</code>这个hex文件给出了解释执行的方法。静态分析<code>myvw</code>的运行方式确定其使用的指令集，并以之编写反汇编器，对<code>hello</code>进行反汇编，转换为用易于理解的助记符表示的汇编程序，从而理解其工作流程。<h1 id="初步探索"><a href="#初步探索" class="headerlink" title="初步探索"></a>初步探索</h1><h2 id="通过myvm运行hello"><a href="#通过myvm运行hello" class="headerlink" title="通过myvm运行hello"></a>通过myvm运行hello</h2><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/1.png" alt><br>运行hello程序后会显示一行欢迎字符串，之后会要求输入一些数据，可以看到该程序的大致作用为将输入的数据回显出来，再输出一个换行。<br>下面尝试一下奇怪的输入试探程序的一些特殊处理：<br>键盘上的特殊键：<br><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/2.png" alt><br>输入了键盘上的”↑’键，可以看到程序并没有返回之前的几个字符，而是直接返回A，且并没有换行处理。<h2 id="使用010Editor查看文件-amp-amp-使用IDA直接反汇编文件"><a href="#使用010Editor查看文件-amp-amp-使用IDA直接反汇编文件" class="headerlink" title="使用010Editor查看文件&amp;&amp;使用IDA直接反汇编文件"></a>使用010Editor查看文件&amp;&amp;使用IDA直接反汇编文件</h2><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/3.png" alt><br>可以看到欢迎字符串存储在头部，不过对于这个未知的文件，指令与数据混杂在一起，无法确定代码和代码入口点的部分的位置，需要通过对<code>myvw</code>的分析来进一步确认。<center><img src="https://raw.githubusercontent.com/purewhitywhite/imagehosting/master/304challenge/4.png"></center>
+用IDA打开之后随便找了几个地方按c，可以得到一些汇编指令，但具体看不太明白，应该还是要从虚拟机入手。
+<center><img src="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328185718.png"></center>
+</li>
 </ul>
 
       
@@ -234,7 +238,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Virtual Machine</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Disassemble</a>
         		</li>
       		
 		</ul>
@@ -438,15 +442,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Disassemble</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Reverse</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">blue-whale</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pwn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -458,15 +462,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">工作</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IDS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtual Machine</a>
               </li>
             
             <div class="clearfix"></div>
