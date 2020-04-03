@@ -17,19 +17,19 @@
 <meta property="og:site_name" content="pur3wh1tywhite">
 <meta property="og:description" content="A survey of myvm &amp;amp; disassembler &amp;amp; more.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191817.png">
-<meta property="og:image" content="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191818.png">
-<meta property="og:image" content="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191820.png">
-<meta property="og:image" content="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191819.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/03/NZY3m4picq82buw.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/03/1SLAnurKoce2GUg.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/03/KklbGBjvVDmp3sc.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/03/9hUxaCDp1Ws8Hqu.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/03/LprKIlnTyxt2fco.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/03/YELFfnou5KCcTrB.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/03/PGg5kCdnxmoYUKA.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/03/fWxqvp8Pe3i2ZL9.png">
-<meta property="og:updated_time" content="2020-04-03T15:48:05.777Z">
+<meta property="og:updated_time" content="2020-04-03T15:55:19.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="304challenge">
 <meta name="twitter:description" content="A survey of myvm &amp;amp; disassembler &amp;amp; more.">
-<meta name="twitter:image" content="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191817.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/03/NZY3m4picq82buw.png">
   
   
     <link rel="icon" href="/img/myicon.ico">
@@ -219,18 +219,18 @@
 <li>对虚拟机进行分析，理解其指令格式，取址方式，了解指令用法；</li>
 <li>基于对虚拟机的理解写出对应的反汇编器；</li>
 <li>对给出程序进行分析，理解hello程序所做的所有事情。<br>初步理解：<code>myvw</code>对如何执行<code>hello</code>这个hex文件给出了解释执行的方法。静态分析<code>myvw</code>的运行方式确定其使用的指令集，并以之编写反汇编器，对<code>hello</code>进行反汇编，转换为用易于理解的助记符表示的汇编程序，从而理解其工作流程。<h1 id="初步探索"><a href="#初步探索" class="headerlink" title="初步探索"></a>初步探索</h1></li>
-<li>通过myvm运行hello<center><img src="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191817.png"></center>
+<li>通过myvm运行hello<center><img src="https://i.loli.net/2020/04/03/NZY3m4picq82buw.png"></center>
 
 </li>
 </ul>
-<p>运行hello程序后会显示一行欢迎字符串，之后会要求输入一些数据，可以看到该程序的大致作用为将输入的数据回显出来，再输出一个换行。<br>下面尝试一下奇怪的输入试探程序的一些特殊处理：<br>键盘上的特殊键：<br><center><img src="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191818.png"></center></p>
+<p>运行hello程序后会显示一行欢迎字符串，之后会要求输入一些数据，可以看到该程序的大致作用为将输入的数据回显出来，再输出一个换行。<br>下面尝试一下奇怪的输入试探程序的一些特殊处理：<br>键盘上的特殊键：<br><center><img src="https://i.loli.net/2020/04/03/1SLAnurKoce2GUg.png"></center></p>
 <p>输入了键盘上的”↑’键，可以看到程序并没有返回之前的几个字符，而是直接返回A，且并没有换行处理。</p>
 <ul>
-<li>使用010Editor查看文件&amp;&amp;使用IDA直接反汇编文件<center><img src="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191820.png"></center>
+<li>使用010Editor查看文件&amp;&amp;使用IDA直接反汇编文件<center><img src="https://i.loli.net/2020/04/03/KklbGBjvVDmp3sc.png"></center>
 
 </li>
 </ul>
-<p>可以看到欢迎字符串存储在头部，不过对于这个未知的文件，指令与数据混杂在一起，无法确定代码和代码入口点的部分的位置，需要通过对<code>myvw</code>的分析来进一步确认。<br><center><img src="https://whitywhite-imagehosting.oss-cn-qingdao.aliyuncs.com/304challenge/20200328191819.png"></center><br>用IDA打开之后随便找了几个地方按c，可以得到一些汇编指令，但具体看不太明白，应该还是要从虚拟机入手。</p>
+<p>可以看到欢迎字符串存储在头部，不过对于这个未知的文件，指令与数据混杂在一起，无法确定代码和代码入口点的部分的位置，需要通过对<code>myvw</code>的分析来进一步确认。<br><center><img src="https://i.loli.net/2020/04/03/9hUxaCDp1Ws8Hqu.png"></center><br>用IDA打开之后随便找了几个地方按c，可以得到一些汇编指令，但具体看不太明白，应该还是要从虚拟机入手。</p>
 <h1 id="myvw反编译分析"><a href="#myvw反编译分析" class="headerlink" title="myvw反编译分析"></a>myvw反编译分析</h1><h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">__int64 __usercall main@&lt;rax&gt;(<span class="keyword">char</span> **a1@&lt;rsi&gt;, <span class="keyword">char</span> **a2@&lt;rdx&gt;, __int64 a3@&lt;rax&gt;, <span class="keyword">int</span> a4@&lt;edi&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  __int64 *v4; <span class="comment">// rbx</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( a4 == <span class="number">2</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    signal(<span class="number">2</span>, (<span class="keyword">__sighandler_t</span>)handler);</span><br><span class="line">    v4 = (__int64 *)sub_CE0(a1[<span class="number">1</span>]);</span><br><span class="line">    unk_202014 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      v5 = sub_E90(v4);</span><br><span class="line">      <span class="keyword">if</span> ( v5 )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">if</span> ( !unk_202014 )</span><br><span class="line">        <span class="keyword">goto</span> LABEL_8;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v5 == <span class="number">2</span> )</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Illegal Instruction"</span>);</span><br><span class="line">LABEL_8:</span><br><span class="line">    nullsub_1(v4);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Usage: %s &lt;myvm program&gt;\n"</span>, *a1, a3);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>main</code>函数首先对输入虚拟机的参数进行了判断，保证用户正确的使用了输入；<br>随后的<code>signal</code>负责捕捉信号2（ctrl+c，即跳出信号），并交由<code>handler</code>进行处理；<a href="https://www.runoob.com/cprogramming/c-function-signal.html" target="_blank" rel="noopener">signal详解</a><br>随后调用<code>sub_CE0</code>，大致作用为给输入的文件分配内存的空间。<code>sub_CE0</code>的反编译结果如下：</p>
