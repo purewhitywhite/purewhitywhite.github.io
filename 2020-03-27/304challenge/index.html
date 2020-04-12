@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/05/ICfgybHwzhBrQOV.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/05/5TpUFsOSvdoEWnH.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/09/YM9gefN18rQdVAU.png">
-<meta property="og:updated_time" content="2020-04-09T15:46:52.855Z">
+<meta property="og:updated_time" content="2020-04-12T15:48:58.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="304challenge">
 <meta name="twitter:description" content="A survey of myvm &amp;amp; disassembler &amp;amp; more.">
@@ -178,7 +178,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">6k字</span>
+        <span class="post-count">6.3k字</span>
       </span>
     </span>
 
@@ -187,7 +187,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">24分</span>
+        <span class="post-count">25分</span>
       </span>
     </span>
 </div>
@@ -347,6 +347,17 @@
 <li>每次指令修改了寄存器后，都需要更新条件标志位（condition flags）</li>
 </ul>
 <p>以上就是ADD的实现，你可能会觉得以这样的方式实现另外15个指令将会是一件非常繁琐的事情。好消息是，前面的这些函数基本都是可以重用的，因为另外 15 条指令中，大部分都会组合有符号扩展、不同的模式和更新条件标记等等。</p>
+<h2 id="Capstone"><a href="#Capstone" class="headerlink" title="Capstone"></a>Capstone</h2><p>Capstone 是一个反汇编框架，希望成为在二进制分析和安全通讯反向工程的最棒工具。可运行在 Windows、Mac OS X、Linux、FreeBSD、OpenBSD 和 Solaris，可反汇编 ARM、ARM64 (ARMv8)、MIPS、PPC 和 x86 架构下应用，Capstone 提供丰富的反汇编指令。</p>
+<p>Capstone由Nguyen Anh Quynh创建，然后由一个小型社区开发和维护，具有一些无与伦比的功能，如下：</p>
+<p>支持多种硬件架构：ARM，ARM64（ARMv8），以太坊VM，M68K，Mips，MOS65XX，PPC，Sparc，SystemZ，TMS320C64X，M680X，XCore和X86（包括X86_64）。</p>
+<p>具有简洁/简单/轻巧/直观的中立架构API。</p>
+<p>提供有关反汇编指令（其他人称为“分解器”）的详细信息。</p>
+<p>提供反汇编指令的语义，例如读取和写入的隐式寄存器列表。</p>
+<p>以纯C语言实现，具有D，Clojure，F#，Common Lisp，Visual Basic，PHP，PowerShell，Emacs，Haskell，Perl，Python，Ruby，C#，NodeJS，Java，GO，C++，OCaml，Lua， Rust，Delphi，Free Pascal和Vala可以在主要代码中使用，也可以由社区外部提供）。</p>
+<p>对所有流行平台的本机支持：Windows，Mac OSX，iOS，Android，Linux，BSD，Solaris等。</p>
+<p>设计上是线程安全的。</p>
+<p>对嵌入固件或OS内核的特殊支持。</p>
+<p>高性能，适用于恶意软件分析（能够处理各种X86恶意软件技巧）。</p>
 <h2 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h2><p>一个ELF文件由以下三部分组成：</p>
 <ul>
 <li>ELF头(ELF header) - 描述文件的主要特性：类型，CPU架构，入口地址，现有部分的大小和偏移等等；</li>
@@ -441,7 +452,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初步探索"><span class="toc-number">1.</span> <span class="toc-text">初步探索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#myvw反编译分析"><span class="toc-number">2.</span> <span class="toc-text">myvw反编译分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#main"><span class="toc-number">2.1.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-CE0"><span class="toc-number">2.2.</span> <span class="toc-text">sub_CE0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSE2"><span class="toc-number">2.2.1.</span> <span class="toc-text">SSE2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-E90"><span class="toc-number">2.3.</span> <span class="toc-text">sub_E90</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算术逻辑运算指令"><span class="toc-number">2.3.1.</span> <span class="toc-text">算术逻辑运算指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳转指令"><span class="toc-number">2.3.2.</span> <span class="toc-text">跳转指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Background-Knowledge"><span class="toc-number">3.</span> <span class="toc-text">Background Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数调用"><span class="toc-number">3.1.</span> <span class="toc-text">函数调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻址模式"><span class="toc-number">3.2.</span> <span class="toc-text">寻址模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何用c语言实现ADD指令"><span class="toc-number">3.3.</span> <span class="toc-text">如何用c语言实现ADD指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF文件"><span class="toc-number">3.4.</span> <span class="toc-text">ELF文件</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初步探索"><span class="toc-number">1.</span> <span class="toc-text">初步探索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#myvw反编译分析"><span class="toc-number">2.</span> <span class="toc-text">myvw反编译分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#main"><span class="toc-number">2.1.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-CE0"><span class="toc-number">2.2.</span> <span class="toc-text">sub_CE0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSE2"><span class="toc-number">2.2.1.</span> <span class="toc-text">SSE2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-E90"><span class="toc-number">2.3.</span> <span class="toc-text">sub_E90</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算术逻辑运算指令"><span class="toc-number">2.3.1.</span> <span class="toc-text">算术逻辑运算指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳转指令"><span class="toc-number">2.3.2.</span> <span class="toc-text">跳转指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Background-Knowledge"><span class="toc-number">3.</span> <span class="toc-text">Background Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数调用"><span class="toc-number">3.1.</span> <span class="toc-text">函数调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻址模式"><span class="toc-number">3.2.</span> <span class="toc-text">寻址模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何用c语言实现ADD指令"><span class="toc-number">3.3.</span> <span class="toc-text">如何用c语言实现ADD指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Capstone"><span class="toc-number">3.4.</span> <span class="toc-text">Capstone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF文件"><span class="toc-number">3.5.</span> <span class="toc-text">ELF文件</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
