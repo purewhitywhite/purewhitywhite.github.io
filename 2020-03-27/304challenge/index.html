@@ -28,7 +28,8 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/05/ICfgybHwzhBrQOV.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/05/5TpUFsOSvdoEWnH.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/09/YM9gefN18rQdVAU.png">
-<meta property="og:updated_time" content="2020-04-12T15:48:58.943Z">
+<meta property="og:image" content="https://i.loli.net/2020/04/09/YM9gefN18rQdVAU.png">
+<meta property="og:updated_time" content="2020-04-19T14:44:27.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="304challenge">
 <meta name="twitter:description" content="A survey of myvm &amp;amp; disassembler &amp;amp; more.">
@@ -178,7 +179,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">6.3k字</span>
+        <span class="post-count">6.9k字</span>
       </span>
     </span>
 
@@ -187,7 +188,7 @@
       <span class="post-meta-item-icon" style="color:	#636363;font-size:14px;">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">25分</span>
+        <span class="post-count">28分</span>
       </span>
     </span>
 </div>
@@ -310,7 +311,7 @@
 <p>对于AT&amp;T语法使用MOV寻址时需要两个参数，第一个参数是源地址，第二个参数是目标地址。原地址的表达方式不一样那么寻址的方式也就不一样。比如，访问全局变量使用一个简单变量的名称比如x，我们称之为全局符号寻址。printf一个整数常量，由美元符号+数值表示(例如$ 56)，我们称之为直接寻址。访问寄存器的值直接使用寄存器的名字如%rbx，我们称之为寄存器寻址。如果寄存器中存放的是一个地址，访问这个地址中的数据时需要在寄存器外面加上括号如(%rbx)，我们称之为间接寻址。如果寄存器中存放的是一个数组的地址，我们需要访问数组中的元素时可能需要操作这个地址进行偏移，如8(％rcx）是指％rcx中存放的的地址加8字节存储单元的值，我们称之为相对基址寻址（此模式对于操作堆栈，局部变量和函数参数非常重要）。在相对基址寻址上有各种复杂的变化，例如-16（％rbx，％rcx，8）是指地址-16 +％rbx +％rcx * 8处的值。此模式对于访问排列在数组中的特殊大小的元素非常有用。</p>
 <p>以下是使用各种寻址模式将64位值加载到％rax的示例：<br><center><img src="https://i.loli.net/2020/04/05/5TpUFsOSvdoEWnH.png"></center></p>
 <p>通常，可以使用相同的寻址模式将数据存储到寄存器和内存。但是，并不是所有模式都支持。比如不能对MOV的两个参数都使用base-relative mode。像MOVQ -8（％rbx），-8（％rbx）这样是不行的。要准确查看支持哪些寻址模式组合，您必须阅读相关指令的手册。</p>
-<h2 id="如何用c语言实现ADD指令"><a href="#如何用c语言实现ADD指令" class="headerlink" title="如何用c语言实现ADD指令"></a>如何用c语言实现ADD指令</h2><p>ADD 指令将两个数相加，然后将结果存到一个寄存器中。 ADD指令的编码格式如下：<br><center><img src="https://i.loli.net/2020/04/09/YM9gefN18rQdVAU.png"></center><br>这里给出了两张图是因为 ADD 指令有两种不同的“模式”。在解释模式之前，先来看看两张图的共同点：</p>
+<h2 id="如何用c语言实现汇编指令"><a href="#如何用c语言实现汇编指令" class="headerlink" title="如何用c语言实现汇编指令"></a>如何用c语言实现汇编指令</h2><h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><p>ADD 指令将两个数相加，然后将结果存到一个寄存器中。 ADD指令的编码格式如下：<br><center><img src="https://i.loli.net/2020/04/09/YM9gefN18rQdVAU.png"></center><br>这里给出了两张图是因为 ADD 指令有两种不同的“模式”。在解释模式之前，先来看看两张图的共同点：</p>
 <ul>
 <li>两者都是以 0001 这 4 个比特开始的，这是 OP_ADD 的操作码（opcode）</li>
 <li>后面 3 个比特名为 DR（destination register），即目的寄存器，相加的结果会放到 这里</li>
@@ -347,6 +348,22 @@
 <li>每次指令修改了寄存器后，都需要更新条件标志位（condition flags）</li>
 </ul>
 <p>以上就是ADD的实现，你可能会觉得以这样的方式实现另外15个指令将会是一件非常繁琐的事情。好消息是，前面的这些函数基本都是可以重用的，因为另外 15 条指令中，大部分都会组合有符号扩展、不同的模式和更新条件标记等等。</p>
+<h3 id="LDI"><a href="#LDI" class="headerlink" title="LDI"></a>LDI</h3><p>LDI 是 load indirect 的缩写，用于从内存加载一个值到寄存器，规范见 532 页。 LDI 的二进制格式如下：<br><center><img src="https://i.loli.net/2020/04/09/YM9gefN18rQdVAU.png"></center></p>
+<p>与 ADD 相比，LDI 只有一种模式，参数也更少。LDI 的操作码是 1010，对应 OP_LDI 枚举类型。和 ADD 类似，它包含一个 3 比特的 DR（destination register）寄存器，用 于存放加载的值。剩余的比特组成 <code>PCoffset9</code> 字段，这是该指令内嵌的一个立即值（ immediate value），和 <code>imm5</code>类似。由于这个指令是从内存加载值，因此我们可以猜测 ，<code>PCoffset9</code> 是一个加载值的内存地址。LC-3 规范提供了更多细节：</p>
+<blockquote>
+<p>An address is computed by sign-extending bits [8:0] to 16 bits and adding this value to the incremented PC. What is stored in memory at this address is the address of the data to be loaded into DR. (Pg. 532)</p>
+</blockquote>
+<p>和前面一样，我们需要将这个 9 比特的 PCoffset9 以有符号的方式扩展到 16 比特，但 这次是将扩展之后的值加到当前的<strong>程序计数器 <code>PC</code></strong>（如果回头去看前面的 while 循环，就会发现这条指令加载之后 PC 就会递增）。相加得到的结果（也就是 PC 加完之后的 值）表示一个内存地址，这个地址中存储的值表示另一个地址，后者中存储的是需要加载到 DR 中的值。<br>这种方式听上去非常绕，但它确是不可或缺的。LD 指令只能加载 offset 是 9 位的地址， 但整个内存是 16 位的。LDI 适用于加载那些远离当前 PC 的地址内的值，但要加载这 些值，需要将这些最终地址存储在离 PC 较近的位置。可以将它想想成 C 中有一个局部变 量，这变量是指向某些数据的指针：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// the value of far_data is an address</span></span><br><span class="line"><span class="comment">// of course far_data itself (the location in memory containing the address) has an address</span></span><br><span class="line"><span class="keyword">char</span>* far_data = <span class="string">"apple"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// In memory it may be layed out like this:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Address Label      Value</span></span><br><span class="line"><span class="comment">// 0x123:  far_data = 0x456</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 0x456:  string   = 'a'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// if PC was at 0x100</span></span><br><span class="line"><span class="comment">// LDI R0 0x023</span></span><br><span class="line"><span class="comment">// would load 'a' into R0</span></span><br></pre></td></tr></table></figure>
+
+<p>和 ADD 类似，将值放到 DR 之后需要更新条件标志位：</p>
+<blockquote>
+<p>The condition codes are set based on whether the value loaded is negative, zero, or positive. (Pg. 532)</p>
+</blockquote>
+<p>对LDI的实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint16_t</span> r0 = (instr &gt;&gt; <span class="number">9</span>) &amp; <span class="number">0x7</span>; <span class="comment">/* destination register (DR) */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> pc_offset = sign_extend(instr &amp; <span class="number">0x1ff</span>, <span class="number">9</span>); <span class="comment">/* PCoffset 9*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* add pc_offset to the current PC, look at that memory location to get the final address */</span></span><br><span class="line">    reg[r0] = mem_read(mem_read(reg[R_PC] + pc_offset));</span><br><span class="line">    update_flags(r0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后面会看到，这些指令的实现中，大部分辅助功能函数都是可以复用的。</p>
 <h2 id="Capstone"><a href="#Capstone" class="headerlink" title="Capstone"></a>Capstone</h2><p>Capstone 是一个反汇编框架，希望成为在二进制分析和安全通讯反向工程的最棒工具。可运行在 Windows、Mac OS X、Linux、FreeBSD、OpenBSD 和 Solaris，可反汇编 ARM、ARM64 (ARMv8)、MIPS、PPC 和 x86 架构下应用，Capstone 提供丰富的反汇编指令。</p>
 <p>Capstone由Nguyen Anh Quynh创建，然后由一个小型社区开发和维护，具有一些无与伦比的功能，如下：</p>
 <p>支持多种硬件架构：ARM，ARM64（ARMv8），以太坊VM，M68K，Mips，MOS65XX，PPC，Sparc，SystemZ，TMS320C64X，M680X，XCore和X86（包括X86_64）。</p>
@@ -452,7 +469,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初步探索"><span class="toc-number">1.</span> <span class="toc-text">初步探索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#myvw反编译分析"><span class="toc-number">2.</span> <span class="toc-text">myvw反编译分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#main"><span class="toc-number">2.1.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-CE0"><span class="toc-number">2.2.</span> <span class="toc-text">sub_CE0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSE2"><span class="toc-number">2.2.1.</span> <span class="toc-text">SSE2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-E90"><span class="toc-number">2.3.</span> <span class="toc-text">sub_E90</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算术逻辑运算指令"><span class="toc-number">2.3.1.</span> <span class="toc-text">算术逻辑运算指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳转指令"><span class="toc-number">2.3.2.</span> <span class="toc-text">跳转指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Background-Knowledge"><span class="toc-number">3.</span> <span class="toc-text">Background Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数调用"><span class="toc-number">3.1.</span> <span class="toc-text">函数调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻址模式"><span class="toc-number">3.2.</span> <span class="toc-text">寻址模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何用c语言实现ADD指令"><span class="toc-number">3.3.</span> <span class="toc-text">如何用c语言实现ADD指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Capstone"><span class="toc-number">3.4.</span> <span class="toc-text">Capstone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF文件"><span class="toc-number">3.5.</span> <span class="toc-text">ELF文件</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初步探索"><span class="toc-number">1.</span> <span class="toc-text">初步探索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#myvw反编译分析"><span class="toc-number">2.</span> <span class="toc-text">myvw反编译分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#main"><span class="toc-number">2.1.</span> <span class="toc-text">main</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-CE0"><span class="toc-number">2.2.</span> <span class="toc-text">sub_CE0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSE2"><span class="toc-number">2.2.1.</span> <span class="toc-text">SSE2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-E90"><span class="toc-number">2.3.</span> <span class="toc-text">sub_E90</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算术逻辑运算指令"><span class="toc-number">2.3.1.</span> <span class="toc-text">算术逻辑运算指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳转指令"><span class="toc-number">2.3.2.</span> <span class="toc-text">跳转指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Background-Knowledge"><span class="toc-number">3.</span> <span class="toc-text">Background Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数调用"><span class="toc-number">3.1.</span> <span class="toc-text">函数调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻址模式"><span class="toc-number">3.2.</span> <span class="toc-text">寻址模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何用c语言实现汇编指令"><span class="toc-number">3.3.</span> <span class="toc-text">如何用c语言实现汇编指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ADD"><span class="toc-number">3.3.1.</span> <span class="toc-text">ADD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LDI"><span class="toc-number">3.3.2.</span> <span class="toc-text">LDI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Capstone"><span class="toc-number">3.4.</span> <span class="toc-text">Capstone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF文件"><span class="toc-number">3.5.</span> <span class="toc-text">ELF文件</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
